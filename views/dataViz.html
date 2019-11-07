@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <meta charset="UTF-8" />
+    <title>Uncertainty</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></script>
+    <script src="https://unpkg.com/d3-simple-slider"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: sans-serif;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+      .main {
+        margin: 0 auto;
+        width: 80%;
+        height: 100%;
+      }
+      .title {
+        height: 20%;
+        font-size: 1.2em;
+        padding-top: 20px;
+        text-align: center;
+        margin: 0;
+      }
+      .chartChoice {
+        height: 80%;
+      }
+      .charts {
+        height: 90%;
+        margin: 0;
+      }
+
+      .choices {
+        height: 10%;
+        margin: 0;
+      }
+      #chart1,
+      #chart2 {
+        /*width:400px;*/
+        /*height:400px;*/
+        margin: 0 auto;
+        height: 100%;
+        /*float: left;*/
+      }
+      .uncertaintyPaths {
+        pointer-events: none;
+      }
+      svg {
+        display: block;
+        margin: 0 auto;
+        cursor: pointer;
+      }
+      .line {
+        pointer-events: none;
+      }
+      .uncertainty {
+        pointer-events: none;
+      }
+
+      #varX,
+      #varY {
+        font-weight: bold;
+      }
+
+      .focus circle {
+        fill: none;
+        stroke: steelblue;
+      }
+
+      .instructions p {
+        text-align: center;
+        font-size: x-large;
+      }
+      .linechart {
+        margin: 0 auto;
+      }
+      .loader {
+        position: absolute;
+        height: 200px;
+        width: 200px;
+        left: 50%;
+        margin-left: -100px;
+        top: 50%;
+        margin-top: -100px;
+        display: none;
+      }
+
+      #next,
+      #repeat {
+        margin: 0 auto;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row choices">
+        <div class="col">
+          <button class="btn btn-secondary" id="next">Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var beliefData = {};
+      var startTime = Date.now();
+      $("#next").click(function(event) {
+        event.preventDefault();
+        beliefData["startTime"] = startTime;
+        beliefData["endTime"] = Date.now();
+        $.post(
+          "/api/study",
+          (data = beliefData),
+          (success = function(d) {
+            console.log(d);
+            console.log("success");
+            window.location.assign("/next");
+          })
+        );
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+*{
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin:0;
+}
+
+.container.main {
+    height:100%;
+
+}
+
+#topic{
+    height:20%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+#topic h2 {
+    text-align: center;
+}
+#message {
+    width: 100%;
+    height: 50%;
+    /*background-color: lightgray;*/
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+#decisions{
+    height: 30%;
+}
+
+#message div{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 30px;
+    text-align: center;
+    /*padding: 10%;*/
+
+}
+
+#continue, #decide {
+    height: 100%;
+    /*width: 30%;*/
+
+    float: left;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#decisions p {
+    font-size: xx-large;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+}
+
+#decisions p:hover{
+    background-color: orange;
+}
+
+#continue p {
+    background-color: teal;
+    text-align: center;
+    padding: 100px;
+}
+
+#decide p {
+    background-color: green;
+    text-align: center;
+    padding: 100px;
+}

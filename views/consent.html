@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualizing Bivariate Relationships</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+          integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+            integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+            crossorigin=""></script>
+    <link rel="stylesheet" href="/css/consent.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</head>
+<body>
+            <div id="consent-text" class="container  bg-light">
+
+
+                <p style='text-align:center; margin-bottom: 25px;'><img src='/images/university.png' height=120px></p>
+                <h1>Consent to Participate in a Research Study</h1>
+
+                <p><b>Title of the Project:</b> Visualizing Bivariate Relationships</p>
+                <p><b>Principal investigator:</b> Dr. Douglas Markant, Department of Psychological Science, UNC Charlotte</p>
+                <p>You are invited to participate in a research study. Participation in this research study is voluntary. The information provided on this form is to help you decide whether or not to participate.</p>
+                
+                <h2>Important Information You Need to Know</h2>
+                <ul>
+                    <li>The purpose of this study is to measure people’s intuitive beliefs about the relationships between sets of variables. The study will involve making a series of judgments about how two variables X and Y are related to each other, as well as answering simple questions about your experience during the task.</li>
+                    <li>We are asking individuals who are age 18 or older and fluent in English to participate. Participation will take approximately 20-30 minutes in total.</li>
+                    <li>Upon completion of the study, you will earn a minimum of $1.00 through Amazon MTurk. You may also earn up to an additional $2.00 based on your performance in the task.</li>
+                    <li>Please read this form in order to decide whether to participate in this research study.</li>
+                </ul>
+
+                <h2>Why are we doing this study?</h2>
+                <p>The purpose of this study is to measure people’s intuitive beliefs about the relationships between sets of variables. For example, for the variables X = “height” and Y = “weight,” you would be asked to make a series of judgments based on whether you think X and Y are associated (e.g., the extent to which tall people tend to weigh more).</p>
+                
+                <h2>Why are you being asked to be in this research study?</h2>
+                <p>You are being asked to be in this study because you are age 18 and older and are fluent in English.</p>
+
+                <h2>What will happen if I take part in this study?</h2>
+                <p>If you choose to participate in this study, you will complete a computer-based task in which you will make judgments about the relationships between sets of variables. After completing the task, you will be asked some questions about your experience as well as basic demographic questions (age, level of education, biological sex). Your total time commitment if you choose to participate will be approximately 20-30 minutes.</p>
+
+                <h2>What benefits might I experience?</h2>
+                <p>You will not benefit directly from being in this study.  The broader benefits of this research include improved scientific understanding of how to measure people’s beliefs about bivariate relationships.</p>
+                
+                <h2>What risks might I experience?</h2>
+                <p>There are no known or foreseeable risks associated with your participation in this study.</p>
+                
+                <h2>How will my information be protected?</h2>
+                <p>Research data collected as part of this study will remain confidential to the fullest extent possible and will only be disclosed with your permission or as required by law. Identifiable information (Amazon Mechanical Turk IDs) will be stored separately from all other data collected during this study. Records of your responses during the task will be linked to identifiable data using a master list; this list will be permanently deleted upon completion of the study. Until that point any identifiable information will be stored in protected databases accessible only to the researchers or University administrators, on University-managed infrastructure.</p>
+                
+                <h2>How will my information be used after the study is over?</h2>
+                <p>After the study is complete, study data may be shared with other researchers for use in other studies or as may be needed for publishing our results. The data we share will NOT include information that could identify you.</p>
+                
+                <h2>Will I receive an incentive for taking part in this study?</h2>
+                <p>You will receive a minimum payment of $1.00 through Amazon Mechanical Turk upon completion of the study. In addition, you may earn up to $2.00 in additional payment based on your performance in the task. If you decide to withdraw from the study prior to completion you will not be eligible for payment. </p>
+
+                <h2>What are my rights if I take part in this study?</h2>
+                <p>It is up to you to decide to be in this research study. Participating in this study is voluntary. Even if you decide to be part of the study now, you may change your mind and stop at any time. You do not have to answer any questions you do not want to answer.</p>
+                
+                <h2>Who can answer my questions about this study and my rights as a participant?</h2>
+                <p>For questions about this research, you may contact Dr. Douglas Markant (dmarkant@uncc.edu). If you have questions about your rights as a research participant, or wish to obtain information, ask questions, or discuss any concerns about this study with someone other than the researcher(s), please contact the Office of Research Compliance at 704-687-1871 or uncc-irb@uncc.edu.</p>
+
+                <h1>Consent to Participate</h2>
+                <p>By submitting this form you are agreeing to be in this study. Make sure you understand what the study is about before you submit. You may use the button below to download a PDF version of this form for your records. If you have any questions about the study after you submit this form, you can contact the study team using the information provided above.</p>
+
+                <p>I understand what the study is about and my rights as a participant. I agree to take part in this study.</p>
+                
+                <!--<p><b>MTurk ID:</b> {{ workerId }}</p>-->
+                <p><b>Date:</b> 
+                <script> document.write(new Date().toLocaleDateString()); </script>
+                </p>
+
+                <button type="button" class="btn btn-default btn-sm" onClick="window.print();">
+                <span class="glyphicon glyphicon-print"></span> Print a copy of this page
+                </button>
+
+                <!--
+                <ul>
+                <li>You are invited to participate in a study conducted by researchers at University of North Carolina at Charlotte. Participation in this research study is voluntary. The information provided is to give you key information to help you decide whether or not to participate.</li>
+                <li>Project Purpose: The purpose of this study is to examine the mechanisms of public opinion formation in conflicting situations that affect society at large.</li>
+                    <li>Eligibility: You are eligible to participate in this study if you are able to read and write in English and at least 18 years old.</li>
+                Overall Description of Participation: You will be introduced to a series of legislative bills that have been proposed at either national or state levels. For each bill, you will be asked about your level of familiarity and opinion towards each issue. You will then have the opportunity to read a series of opinions and insights shared by others on each of these programs, after which you will be asked to state your position. You are free to decide how many messages to read prior to making a judgment about the program. You will also asked a series of short general demographic questions. These questions are not sensitive or overly personal.</li>
+                <li>Length of Participation: It will take approximately 15 minutes to complete the study.</li>
+                    <li>Risks and Benefits of Participation: There are no known or foreseeable risks involved in this research study. Besides Amazon MTurk compensation, you will not benefit personally by participating in this study. The broader benefits of this research may include increased understanding of how opinions are formed in online settings.</li>
+                <li>Participation is voluntary. You may choose not to take part in the study. You may start participating and change your mind and stop participation at any time without any penalty. However, you will only be eligible for payment through Amazon MTurk upon completion of the study. When you complete the survey, you will be provided a unique code that you may then enter on Amazon MTurk to receive payment.
+                Your privacy will be protected and confidentiality will be maintained to the extent possible. Your responses will be treated as confidential and will not be linked to your identity. We might use the survey data for future research studies and we might share the non-identifiable survey data with other researchers for future research studies without additional consent from you.
+                If you have questions concerning the study, contact the principal investigator, Dr. Doug Markant at 662-736-8450 or dmarkant@uncc.edu. If you have further questions or concerns about your rights as a participant in this study, contact the Office of Research Compliance at (704) 687-1871 or uncc-irb@uncc.edu.
+                You may print a copy of this form.</li>
+                <li>If you are 18 years of age or older, have read and understood the information provided and freely consent to participate in the study, you may proceed to the study.</li>
+                -->
+
+                <p style="color:red; margin-top:10px">WARNING: DO NOT close your browser or hit the back button during the study until you receive your token after completion of the study. Otherwise your progress will be lost.</p>
+                    <!--<li style="color:red">WARNING: DO NOT close your browser or hit the back button during the study until you receive your token after completion of the study and submission to MTurk. Otherwise your progress will be lost and you may not receive your rewards.</li>-->
+                    <!--</ul>-->
+                <button type="submit" class="btn btn-primary" id="consent">Give consent</button>
+
+
+            </div>
+
+
+    <!-- <script src="/js/article.js"></script> -->
+    <!-- <script src="/js/study.js"></script> -->
+    <script>
+        $("#sidebar").height(function(){
+            return $("html").height();
+        })
+    </script>
+    <script>
+        //    window.location.assign("/consent");
+        $("#consent").click(function(event){
+            event.preventDefault();
+            $.get("/api/consent", function(data, status){
+                console.log(data);
+                window.location.assign("/preforms");
+            });
+        })
+    </script>
+</body>
+</html>
+

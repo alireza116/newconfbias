@@ -1,0 +1,69 @@
+*{
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin:0;
+}
+
+#message {
+    width: 100%;
+    height: 50%;
+    background-color: lightgray;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.container.main {
+    height:100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+#decisions{
+    height: 30%;
+}
+
+#message h2{
+    text-align: center;
+    padding: 10%;
+
+}
+
+#yes, #no{
+    height: 100%;
+    /*width: 30%;*/
+
+    float: left;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#decisions p {
+    font-size: xx-large;
+    border-radius: 25px;
+    /*color: white;*/
+    cursor: pointer;
+}
+
+#decisions p:hover{
+    background-color: orange;
+}
+
+#yes p {
+    background-color: lightgray;
+    text-align: center;
+    padding: 100px;
+}
+
+#no p {
+    background-color: lightgray;
+    text-align: center;
+    padding: 100px;
+}
