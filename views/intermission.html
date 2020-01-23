@@ -42,7 +42,7 @@
     <div style="height:100%" class="container bg-light">
         
         <h4>Now think about the relationship between these variables</h4>
-
+        <p><span id="varX"></span> and <span id="varY"></span></p>
         <button type="submit" class="btn btn-primary" id="presubmit">
           Continue
         </button>
@@ -52,6 +52,11 @@
     <!-- <script src="/js/article.js"></script>
 <script src="/js/study.js"></script> -->
     <script>
+      $.get("/api/data",function(data){
+        var variables = data.vars;
+        $("#varX").text(variables[0]);
+        $("#varY").text(variables[1]);
+      })
       $("#presubmit").click(function(event) {
         event.preventDefault();
         window.location.assign("/study");

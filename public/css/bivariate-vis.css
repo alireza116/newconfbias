@@ -1,0 +1,45 @@
+.chart {
+  width: 500px;
+  height: 500px;
+  margin: 5px;
+  float: left;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+svg {
+  background-color: lightgrey;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.uncertaintyPaths {
+  pointer-events: none;
+}
+
+.line {
+  pointer-events: none;
+}
+.uncertainty {
+  pointer-events: none;
+}
+
+#varX,
+#varY {
+  font-weight: bold;
+}
+
+.focus circle {
+  fill: none;
+  stroke: steelblue;
+}
+
+.linechart {
+  margin: 0 auto;
+}

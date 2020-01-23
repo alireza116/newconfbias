@@ -32,7 +32,9 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
-    <script src="cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
+    <!-- <script src="cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script> -->
+    <script src="js/jstat.js"></script>
+
     <style>
       * {
         box-sizing: border-box;
@@ -68,12 +70,12 @@
         height: 10%;
         margin: 0;
       }
-      #chart1,
-      #chart2 {
+      #chart {
         /*width:400px;*/
         /*height:400px;*/
         margin: 0 auto;
         height: 100%;
+        pointer-events: none;
         /*float: left;*/
       }
       .uncertaintyPaths {
@@ -127,17 +129,91 @@
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="row choices">
-        <div class="col">
-          <button class="btn btn-secondary" id="next">Continue</button>
+    <div class="container-fluid bg-light main">
+      <h6 class="title">
+        <p id="draw2"></p>
+        <p>
+          This chart represents data related to the relationship between
+        </p>
+        <p><span id="varX"></span> and <span id="varY"></span></p>
+        <p>
+          Please take time to review this chart, in light of your previous
+          decision. And then move forward to the next section.
+        </p>
+      </h6>
+      <div class="chartChoice">
+        <div class="row charts">
+          <div class="col-6 linechart">
+            <div id="chart" style="margin: 0 auto"></div>
+          </div>
+        </div>
+        <div class="row choices">
+          <div class="col">
+            <button class="btn btn-secondary" id="next">Continue</button>
+          </div>
         </div>
       </div>
     </div>
 
+    <script src="js/js_boot.js"></script>
+    <script src="js/bivariate-vis.js"></script>
     <script>
+      // to create chart.
+      var jsboot = new js_boot();
+      Promise.all([d3.csv("data/simData2.csv"), d3.json("/api/data")]).then(
+        function(data) {
+          //scatter chart data
+          var scatterData = data[0];
+          // data baout user state and variables
+          var userData = data[1];
+
+          var variables = userData.vars;
+          var state = userData.state;
+          $("#varX").text(variables[0]);
+          $("#varY").text(variables[1]);
+          console.log(testData);
+          console.log(userData);
+
+          // temporary till we figure out data for the charts.
+          var dataObj = [];
+          var tempData = [];
+          scatterData.forEach(function(d, i) {
+            d.idx = +d.idx;
+            d.x = +d.x;
+            d.y = +d.y;
+            d.N = +d.N;
+            d.rho = +d.rho;
+            if ((d.idx === 0) & (i !== 0)) {
+              tempData = [];
+              tempData.push(d);
+              var tempDataObj = {
+                data: tempData,
+                N: tempData[0].N,
+                rho: tempData[0].rho
+              };
+              dataObj.push(tempDataObj);
+            } else {
+              tempData.push(d);
+            }
+          });
+
+          var testData = dataObj[3];
+
+          var slope = testData.rho;
+          var variables = userData.vars;
+          var chart1 = new LineChartDraw("chart", variables, testData.data);
+
+          chart1.createLineChart();
+          chart1.createScatterChart();
+          chart1.createUncertaintyBand();
+        }
+      );
+      // data to save
       var beliefData = {};
       var startTime = Date.now();
+      // $.get("/api/data", function(data) {
+      //   console.log(data);
+      // });
       $("#next").click(function(event) {
         event.preventDefault();
         beliefData["startTime"] = startTime;

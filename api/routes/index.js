@@ -78,7 +78,11 @@ router.get("/api/userinfo", function(req, res) {
 });
 
 router.get("/api/data", function(req, res) {
-  res.status(200).send(req.session.variables[req.session.varIndex]);
+  let d = {
+    state: req.session.state,
+    vars: req.session.variables[req.session.varIndex]
+  };
+  res.status(200).send(d);
 });
 
 router.get("/api/consent", function(req, res) {
@@ -298,6 +302,7 @@ router.get("/next", function(req, res) {
     req.session.stateIndex === 1
   ) {
     req.session.stateIndex += 1;
+    req.session.state = states[req.session.stateIndex];
     res.redirect("/study");
   } else if (
     req.session.varIndex < variables.length &&
@@ -305,6 +310,7 @@ router.get("/next", function(req, res) {
   ) {
     req.session.varIndex += 1;
     req.session.stateIndex = 0;
+    req.session.state = states[req.session.stateIndex];
     res.redirect("/intermission");
   } else {
     res.redirect("postforms");
