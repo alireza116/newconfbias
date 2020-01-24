@@ -126,6 +126,16 @@
         margin: 0 auto;
         display: block;
       }
+      .loader {
+        position: absolute;
+        height: 200px;
+        width: 200px;
+        left: 50%;
+        margin-left: -100px;
+        top: 50%;
+        margin-top: -100px;
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -154,10 +164,17 @@
         </div>
       </div>
     </div>
-
+    <img class="loader" src="/images/loader.gif" />
     <script src="js/js_boot.js"></script>
     <script src="js/bivariate-vis.js"></script>
     <script>
+      $(".loader").css("display", "block");
+      $(".main").css("opacity", "0.1");
+      setTimeout(function() {
+        $(".loader").css("display", "none");
+        $(".main").css("opacity", "1");
+      }, 1000);
+
       // to create chart.
       var jsboot = new js_boot();
       Promise.all([d3.csv("data/simData2.csv"), d3.json("/api/data")]).then(
@@ -197,15 +214,34 @@
             }
           });
 
-          var testData = dataObj[3];
+          var testData = dataObj[Math.floor(Math.random() * dataObj.length)];
 
           var slope = testData.rho;
           var variables = userData.vars;
           var chart1 = new LineChartDraw("chart", variables, testData.data);
-
-          chart1.createLineChart();
-          chart1.createScatterChart();
-          chart1.createUncertaintyBand();
+          var visGroup = userData.visGroup;
+          console.log(visGroup);
+          switch (visGroup) {
+            case "scatter":
+              chart1.createScatterChart();
+              break;
+            case "line":
+              chart1.createScatterChart();
+              chart1.createLineChart();
+              break;
+            case "band":
+              chart1.createScatterChart();
+              chart1.createLineChart();
+              chart1.createUncertaintyBand();
+              break;
+            case "hop":
+              chart1.createScatterChart();
+              chart1.createLineChart();
+              chart1.hopAnimate();
+              break;
+            default:
+              chart1.createScatterChart();
+          }
         }
       );
       // data to save

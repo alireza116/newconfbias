@@ -39,7 +39,7 @@ const responseSchema = new Schema({
     unique: true
   },
   variables: Schema.Types.Mixed,
-  states: Schema.Types.Mixed,
+  visGroup: String,
   date: {
     type: Date,
     default: Date.now
@@ -65,6 +65,8 @@ let variables = [
 
 let states = ["draw1", "dataViz", "draw2"];
 
+let visGroups = ["scatter", "line", "band", "hop"];
+
 const Response = mongoose.model("newconfbias", responseSchema);
 
 router.get("/api/userinfo", function(req, res) {
@@ -80,7 +82,8 @@ router.get("/api/userinfo", function(req, res) {
 router.get("/api/data", function(req, res) {
   let d = {
     state: req.session.state,
-    vars: req.session.variables[req.session.varIndex]
+    vars: req.session.variables[req.session.varIndex],
+    visGroup: req.session.visGroup
   };
   res.status(200).send(d);
 });
@@ -94,6 +97,8 @@ router.get("/api/consent", function(req, res) {
     // let state = states[stateIndex];
     let varIndex = 0;
     // group = 2;
+    req.session.visGroup =
+      visGroups[Math.floor(Math.random() * visGroups.length)];
     req.session.userid = token;
     req.session.completed = false;
     req.session.postQuestion = false;
@@ -106,7 +111,8 @@ router.get("/api/consent", function(req, res) {
 
     let newResponse = new Response({
       usertoken: token,
-      variables: req.session.variables
+      variables: req.session.variables,
+      visGroup: req.session.visGroup
     });
 
     newResponse.save(function(err) {
