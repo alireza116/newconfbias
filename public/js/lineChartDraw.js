@@ -5,7 +5,6 @@ var uncertaintyPaths;
 function LineChartDraw(chartID, variables) {
   var line;
   var uncertainty;
-
   var lineG;
   var cwidth = $("#" + chartID).width();
   var cheight = $("#" + chartID).height();
@@ -196,7 +195,8 @@ function LineChartDraw(chartID, variables) {
       .attr("class", "line") // Assign a class for styling
       .attr("d", valueLine)
       .attr("fill", "none")
-      .attr("stroke", "#ffab00")
+      // .attr("stroke", "#ffab00")
+      .attr("stroke", "red")
       .attr("stroke-width", 5);
 
     line.attr("transform", "translate(" + width / 2 + "," + -height / 2 + ")");
