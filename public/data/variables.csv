@@ -1,0 +1,13 @@
+﻿Unit of observation,X,Y,True relationship,Political?,rho
+Person,Height,Weight,Strongly positive,No,0.9
+City,Number of firearms,Number of mass shootings,Positive (?),Yes,0.5
+City,Temperature,Crime rate,Positive,No,0.3
+City,Vaccination rate,Rate of illness,Negative,Yes,-0.5
+Diamond,Weight of a diamond,Price of a diamond,Strongly positive,No,0.8
+Person,Yearly income,Stress,Negative (?),No,-0.3
+Person,Yearly income,Height,Positive (?),No,0.2
+Person,Exercise amount,Body weight,Negative,No,-0.5
+City,Immigrant population,Economic growth,Positive,Yes,0.3
+City,Income tax rate,Poverty rate,Negative (?),Yes,-0.2
+Company,Labor union participation,Growth rate,?,Yes,0.4
+Year,Number of vehicles,Global temperature change,Positive,Yes,0.5

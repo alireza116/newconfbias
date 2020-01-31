@@ -2,9 +2,18 @@ const express = require("express");
 const router = express.Router();
 const randomstring = require("randomstring");
 const mongoose = require("mongoose");
-const csv = require("csv-parser");
+// const csv = require("csv-parser");
 const fs = require("fs");
 const math = require("mathjs");
+// console.log(__dirname);
+
+let rawdata = fs.readFileSync("./public/data/finalSimData.json");
+let jsonData = JSON.parse(rawdata);
+
+let variables = Object.keys(jsonData).map(function(d) {
+  return jsonData[d]["vars"];
+});
+console.log(variables);
 
 const url =
   "mongodb://markant:emotion2019@ds159025.mlab.com:59025/markantstudy";
@@ -55,13 +64,13 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-let variables = [
-  ["Yearly Income", "Height"],
-  ["Weight of a Diamond", "Price of a Diamond"],
-  ["Yearly Income", "Stress"],
-  ["Vaccination Rate", "Rate of Illness"],
-  ["Exercise amount", "Body Weight"]
-];
+// let variables = [
+//   ["Yearly Income", "Height"],
+//   ["Weight of a Diamond", "Price of a Diamond"],
+//   ["Yearly Income", "Stress"],
+//   ["Vaccination Rate", "Rate of Illness"],
+//   ["Exercise amount", "Body Weight"]
+// ];
 
 let states = ["draw1", "dataViz", "draw2"];
 
@@ -80,9 +89,14 @@ router.get("/api/userinfo", function(req, res) {
 });
 
 router.get("/api/data", function(req, res) {
+  let vars = req.session.variables[req.session.varIndex];
+  var dataset = jsonData[`${vars[0]}_${vars[1]}`];
   let d = {
     state: req.session.state,
-    vars: req.session.variables[req.session.varIndex],
+    vars: vars,
+    data: dataset.data.data,
+    rho: dataset.rho,
+    N: dataset.N,
     visGroup: req.session.visGroup
   };
   res.status(200).send(d);
@@ -97,8 +111,9 @@ router.get("/api/consent", function(req, res) {
     // let state = states[stateIndex];
     let varIndex = 0;
     // group = 2;
-    req.session.visGroup =
-      visGroups[Math.floor(Math.random() * visGroups.length)];
+    // req.session.visGroup =
+    //   visGroups[Math.floor(Math.random() * visGroups.length)];
+    req.session.visGroup = "band";
     req.session.userid = token;
     req.session.completed = false;
     req.session.postQuestion = false;

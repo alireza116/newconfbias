@@ -177,73 +177,73 @@
 
       // to create chart.
       var jsboot = new js_boot();
-      Promise.all([d3.csv("data/simData2.csv"), d3.json("/api/data")]).then(
-        function(data) {
-          //scatter chart data
-          var scatterData = data[0];
-          // data baout user state and variables
-          var userData = data[1];
+      Promise.all([d3.json("/api/data")]).then(function(data) {
+        //scatter chart data
+        // var scatterData = data[0];
+        // // data baout user state and variables
+        var userData = data[0];
 
-          var variables = userData.vars;
-          var state = userData.state;
-          $("#varX").text(variables[0]);
-          $("#varY").text(variables[1]);
-          console.log(testData);
-          console.log(userData);
+        var variables = userData.vars;
+        var state = userData.state;
+        $("#varX").text(variables[0]);
+        $("#varY").text(variables[1]);
+        console.log(testData);
+        console.log(userData);
 
-          // temporary till we figure out data for the charts.
-          var dataObj = [];
-          var tempData = [];
-          scatterData.forEach(function(d, i) {
-            d.idx = +d.idx;
-            d.x = +d.x;
-            d.y = +d.y;
-            d.N = +d.N;
-            d.rho = +d.rho;
-            if ((d.idx === 0) & (i !== 0)) {
-              tempData = [];
-              tempData.push(d);
-              var tempDataObj = {
-                data: tempData,
-                N: tempData[0].N,
-                rho: tempData[0].rho
-              };
-              dataObj.push(tempDataObj);
-            } else {
-              tempData.push(d);
-            }
-          });
+        // temporary till we figure out data for the charts.
+        // var dataObj = [];
+        // var tempData = [];
+        // scatterData.forEach(function(d, i) {
+        //   d.idx = +d.idx;
+        //   d.x = +d.x;
+        //   d.y = +d.y;
+        //   d.N = +d.N;
+        //   d.rho = +d.rho;
+        //   if ((d.idx === 0) & (i !== 0)) {
+        //     tempData = [];
+        //     tempData.push(d);
+        //     var tempDataObj = {
+        //       data: tempData,
+        //       N: tempData[0].N,
+        //       rho: tempData[0].rho
+        //     };
+        //     dataObj.push(tempDataObj);
+        //   } else {
+        //     tempData.push(d);
+        //   }
+        // });
 
-          var testData = dataObj[Math.floor(Math.random() * dataObj.length)];
+        // var testData = dataObj[Math.floor(Math.random() * dataObj.length)];
 
-          var slope = testData.rho;
-          var variables = userData.vars;
-          var chart1 = new LineChartDraw("chart", variables, testData.data);
-          var visGroup = userData.visGroup;
-          console.log(visGroup);
-          switch (visGroup) {
-            case "scatter":
-              chart1.createScatterChart();
-              break;
-            case "line":
-              chart1.createScatterChart();
-              chart1.createLineChart();
-              break;
-            case "band":
-              chart1.createScatterChart();
-              chart1.createLineChart();
-              chart1.createUncertaintyBand();
-              break;
-            case "hop":
-              chart1.createScatterChart();
-              chart1.createLineChart();
-              chart1.hopAnimate();
-              break;
-            default:
-              chart1.createScatterChart();
-          }
+        var testData = userData.data;
+
+        var slope = testData.rho;
+        var variables = userData.vars;
+        var chart1 = new LineChartDraw("chart", variables, testData);
+        var visGroup = userData.visGroup;
+        console.log(visGroup);
+        switch (visGroup) {
+          case "scatter":
+            chart1.createScatterChart();
+            break;
+          case "line":
+            chart1.createScatterChart();
+            chart1.createLineChart();
+            break;
+          case "band":
+            chart1.createScatterChart();
+            chart1.createLineChart();
+            chart1.createUncertaintyBand();
+            break;
+          case "hop":
+            chart1.createScatterChart();
+            chart1.createLineChart();
+            chart1.hopAnimate();
+            break;
+          default:
+            chart1.createScatterChart();
         }
-      );
+      });
       // data to save
       var beliefData = {};
       var startTime = Date.now();
