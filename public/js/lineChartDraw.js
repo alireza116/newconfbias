@@ -186,7 +186,7 @@ function LineChartDraw(chartID, variables) {
     uncertainty = lineG
       .append("path")
       .attr("class", "uncertainty")
-      .attr("fill", "grey")
+      .attr("fill", "lightgrey")
       .attr("fill-opacity", 0);
     uncertaintyPaths = lineG.append("g");
     line = lineG
