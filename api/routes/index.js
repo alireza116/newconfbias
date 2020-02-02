@@ -14,7 +14,6 @@ let dataList = Object.keys(jsonData).map(function(d) {
   return jsonData[d];
 });
 
-// stages are whether scatterplot or uncertainty vis.
 //states are whether it is initial elicitation, data visualization, or secondary elicitation
 // visgroups are line band hop and scatter, self explanatory
 
@@ -53,7 +52,6 @@ const responseSchema = new Schema({
   },
   variables1: Schema.Types.Mixed,
   variables2: Schema.Types.Mixed,
-  stage: String,
   visGroup: String,
   date: {
     type: Date,
@@ -79,17 +77,24 @@ router.get("/api/consent", function(req, res) {
       // console.log(d);
       return d["vars"];
     });
-    // console.log(variables);
+    //signifies whether we are in the scatter plot stage or uncertainty stage
     req.session.uncertainty = false;
+    //signifies wether we start with dataset 1 or dataset 2 (political or not)
     req.session.datasetIndex = datasetIndex;
+    // this will change to the actual group later. Might be a better way of doing this.
     req.session.visGroup = "scatter";
+    //user's unique token
     req.session.userid = token;
     req.session.completed = false;
     req.session.postQuestion = false;
     req.session.preQuestion = false;
+    //this get incremented and iterates over different variables
     req.session.varIndex = 0;
+    //this assigns the orders of variables.
     req.session.variables = shuffle(variables);
+    //this assigns the state of the study i.e. elicitation 1, data vis, elicitation 2
     req.session.stateIndex = 0;
+    //this assigns a string format of state i.e. draw1, datavis, draw2
     req.session.state = states[req.session.stateIndex];
 
     let newResponse = new Response({
@@ -109,6 +114,7 @@ router.get("/api/consent", function(req, res) {
   }
 });
 
+//returns users token
 router.get("/api/userinfo", function(req, res) {
   if (req.session.userid) {
     res.json({
@@ -119,6 +125,7 @@ router.get("/api/userinfo", function(req, res) {
   }
 });
 
+//returns required data for running the expriment.
 router.get("/api/data", function(req, res) {
   let vars = req.session.variables[req.session.varIndex];
   var dataset = jsonData[`${vars[0]}_${vars[1]}`];
@@ -133,23 +140,7 @@ router.get("/api/data", function(req, res) {
   res.status(200).send(d);
 });
 
-// router.post("/api/intermission", function(req, res) {
-//   let token = req.session.userid;
-//   let data = req.body;
-//   // console.log(data);
-//   Response.findOneAndUpdate(
-//     { usertoken: token },
-//     {
-//       intermission: data
-//     },
-//     function(err, doc) {
-//       if (err) return res.send(500, { error: err });
-//       console.log("yeaah");
-//       return res.send("successfully saved!");
-//     }
-//   );
-// });
-
+//saves the current state and the variables as well as the responses.
 router.post("/api/study", function(req, res) {
   let token = req.session.userid;
   let data = req.body;
@@ -171,6 +162,7 @@ router.post("/api/study", function(req, res) {
   );
 });
 
+//prequestionaire
 router.post("/api/pre", function(req, res) {
   let token = req.session.userid;
   let data = req.body;
@@ -189,6 +181,7 @@ router.post("/api/pre", function(req, res) {
   );
 });
 
+//post questionaire
 router.post("/api/post", function(req, res) {
   let token = req.session.userid;
   let data = req.body;
@@ -207,6 +200,7 @@ router.post("/api/post", function(req, res) {
   );
 });
 
+//first page
 router.get("/", function(req, res) {
   if (req.session.completed) {
     res.render("debrief.html");
@@ -214,7 +208,7 @@ router.get("/", function(req, res) {
     res.render("consent.html");
   }
 });
-
+// consent page
 router.get("/consent", function(req, res) {
   if (req.session.completed) {
     res.render("debrief.html");
@@ -262,13 +256,6 @@ router.get("/instructions/uncertainty", function(req, res) {
   }
 });
 
-// router.get("/instructions-MC", function(req, res) {
-//   if (req.session.completed) {
-//     res.render("debrief.html");
-//   } else {
-//     res.render("instructions-MC.html");
-//   }
-// });
 router.get("/instructions/draw", function(req, res) {
   if (req.session.completed) {
     res.render("debrief.html");
@@ -287,18 +274,6 @@ router.get("/postforms", function(req, res) {
   res.render("postforms.html");
 });
 
-// router.get("/instructions/draw", function(req, res) {
-//   console.log(req.session.state);
-//   res.render("instructionsDraw.html");
-//   // if (req.session.state === "draw") {
-//   //   res.render("instructions-LC.html");
-//   // } else if (req.session.state === "mc") {
-//   //   res.render("instructions-MC.html");
-//   // } else {
-//   //   res.send("error!");
-//   // }
-// });
-
 router.get("/study", function(req, res) {
   console.log(req.session.state);
   if (req.session.stateIndex === 0) {
@@ -315,34 +290,6 @@ router.get("/study", function(req, res) {
 router.get("/dataviz", function(req, res) {
   res.render("dataViz.html");
 });
-
-// router.get("/next", function(req, res) {
-//   // req.session.varIndex += 1;
-//   console.log(req.session.varIndex);
-//   console.log(req.session.stateIndex);
-//   if (req.session.varIndex < variables.length && req.session.stateIndex === 0) {
-//     req.session.stateIndex += 1;
-//     req.session.state = states[req.session.stateIndex];
-//     res.redirect("/study");
-//   } else if (
-//     req.session.varIndex < variables.length &&
-//     req.session.stateIndex === 1
-//   ) {
-//     req.session.stateIndex += 1;
-//     req.session.state = states[req.session.stateIndex];
-//     res.redirect("/study");
-//   } else if (
-//     req.session.varIndex < variables.length &&
-//     req.session.stateIndex === 2
-//   ) {
-//     req.session.varIndex += 1;
-//     req.session.stateIndex = 0;
-//     req.session.state = states[req.session.stateIndex];
-//     res.redirect("/intermission");
-//   } else {
-//     res.redirect("postforms");
-//   }
-// });
 
 router.get("/next", function(req, res) {
   if (!req.session.uncertainty) {
