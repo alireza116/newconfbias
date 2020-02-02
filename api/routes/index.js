@@ -51,7 +51,8 @@ const responseSchema = new Schema({
     required: true,
     unique: true
   },
-  variables: Schema.Types.Mixed,
+  variables1: Schema.Types.Mixed,
+  variables2: Schema.Types.Mixed,
   stage: String,
   visGroup: String,
   date: {
@@ -93,7 +94,7 @@ router.get("/api/consent", function(req, res) {
 
     let newResponse = new Response({
       usertoken: token,
-      variables: req.session.variables,
+      variables1: req.session.variables,
       visGroup: req.session.visGroup
     });
 
@@ -382,10 +383,22 @@ router.get("/next", function(req, res) {
         // console.log(d);
         return d["vars"];
       });
-      console.log(variables);
       req.session.variables = shuffle(variables);
       req.session.visGroup = visGroups[getRandomInt(visGroups.length)];
-      res.redirect("/instructions/uncertainty");
+      let token = req.session.userid;
+      Response.findOneAndUpdate(
+        { usertoken: token },
+        {
+          visGroup: req.session.visGroup,
+          variables2: req.session.variables
+        },
+        function(err, doc) {
+          if (err) {
+            return console.log(err);
+          }
+          res.redirect("/instructions/uncertainty");
+        }
+      );
     }
   } else if (req.session.uncertainty) {
     console.log("made it uncertainty");
