@@ -1,13 +1,11 @@
-﻿Unit of observation,X,Y,True relationship,Political?,rho
-Person,Height,Weight,Strongly positive,No,0.9
-City,Number of firearms,Number of mass shootings,Positive (?),Yes,0.5
-City,Temperature,Crime rate,Positive,No,0.3
-City,Vaccination rate,Rate of illness,Negative,Yes,-0.5
-Diamond,Weight of a diamond,Price of a diamond,Strongly positive,No,0.8
-Person,Yearly income,Stress,Negative (?),No,-0.3
-Person,Yearly income,Height,Positive (?),No,0.2
-Person,Exercise amount,Body weight,Negative,No,-0.5
-City,Immigrant population,Economic growth,Positive,Yes,0.3
-City,Income tax rate,Poverty rate,Negative (?),Yes,-0.2
-Company,Labor union participation,Growth rate,?,Yes,0.4
-Year,Number of vehicles,Global temperature change,Positive,Yes,0.5
+﻿Unit of observation,X,Y,True relationship,Political?,rho,set
+Company,Weight of a diamond,Price of a diamond,Strongly positive,No,0.9,1
+City,Temperature,Crime rate,Positive,No,0.4,1
+Person,Yearly income,Height,None,No,0,1
+Person,Exercise amount,Body weight,Negative,No,-0.4,1
+City,Temperature,Sales of Mittens,Strongly Negative,No,-0.9,1
+Country,Federal government spending,Federal deficit,Strongly positive,Yes,0.9,2
+Country,Immigrant population,Economic growth,Positive,Yes,0.4,2
+City,Income tax rate,Poverty rate,None,Yes,0,2
+Company,Labor union participation,Corporate profits,Negative,Yes,-0.4,2
+City,Vaccination rate,Rate of illness,Strongly Negative,Yes,-0.9,2
