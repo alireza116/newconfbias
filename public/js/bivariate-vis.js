@@ -21,7 +21,7 @@ function LineChartDraw(chartID, variables, sampleData) {
   cwidth = cheight;
   //console.log(cwidth);
   //console.log(cheight);
-  var margin = { top: 80, right: 80, bottom: 80, left: 80 },
+  var margin = { top: 120, right: 120, bottom: 120, left: 120 },
     width = cwidth - margin.left - margin.right, // Use the window's width
     height = cheight - margin.top - margin.bottom; // Use the window's height
   var slopeScale = d3
