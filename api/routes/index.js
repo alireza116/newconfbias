@@ -258,10 +258,20 @@ router.get("/instructions/uncertainty", function(req, res) {
       res.render("instructionsBand.html");
     } else if (req.session.visGroup === "hop") {
       res.render("instructionsHop.html");
+    } else {
+      res.send("error");
     }
   }
 });
-console.log("asd");
+
+router.get("/instructions/scatter", function(req, res) {
+  if (req.session.completed) {
+    res.render("debrief.html");
+  } else {
+    res.render("instructionsScatter.html");
+  }
+});
+
 router.get("/instructions/draw", function(req, res) {
   if (req.session.completed) {
     res.render("debrief.html");
@@ -337,7 +347,9 @@ router.get("/next", function(req, res) {
         return d["vars"];
       });
       req.session.variables = shuffle(variables);
+      // THIS IS WHERE VISGROUP IS SET.
       req.session.visGroup = visGroups[getRandomInt(visGroups.length)];
+      // req.session.visGroup = "band";
       let token = req.session.userid;
       Response.findOneAndUpdate(
         { usertoken: token },

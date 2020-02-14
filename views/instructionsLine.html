@@ -41,82 +41,51 @@
   </head>
   <body>
     <div class="container bg-light" id="instructions">
-      <h3>Instructions Line</h3>
+      <h3>Instructions - Round 2</h3>
       <p>
-        Welcome! In this study you will be asked to make a series of judgments
-        based on your belief about the strength of the relationship between two
-        variables.
+        Hello again! In this round of the study, you will go through a very
+        simillar process as the previous round. The only difference is that
+        after using the interactive chart to draw your belief about two
+        variables, you will see a new type of visualization.
       </p>
 
       <p>
-        The relationship between two variables will be represented by a line, as
-        in the examples below. The angle of the line indicates the degree to
-        which one variable increases or decreases as the other variable changes.
+        This new chart draws a line on top of the scatter chart. The line is
+        shows the correlation between those two variables calculated from the
+        provided data points.
       </p>
-
+      <hr />
       <p>
-        For example, for two variables that have a perfectly
-        <b>negative</b> relationship, each unit increase in X is associated with
-        a unit <i>decrease</i> in Y. As a result, the line for a perfectly
-        <b>negative</b> relationship would look like this:
-      </p>
-
-      <img
-        class="img-centered"
-        src="/images/example_negative.png"
-        height="240px"
-      />
-
-      <p>
-        For two variables that have a perfectly <b>positive</b> relationship,
-        each unit increase in X is associated with a unit <i>increase</i> in Y.
-        As a result, the line for a perfectly <b>positive</b> relationship would
-        look like this:
+        For example, for two variables that have very strong and confident
+        <b>positive</b> relationship would produce a chart like this.
       </p>
 
       <img
         class="img-centered"
-        src="/images/example_positive.png"
-        height="240px"
+        src="/images/LineExamplePositive.png"
+        height="500px"
       />
-
+      <hr />
       <p>
-        If two variables are totally <b>unrelated</b> to each other, a unit
-        increase in X is associated with <i>no change</i> in Y. As a result, the
-        line for the relationship between <b>unrelated</b> variables would look
-        like this:
+        For two variables that have a slightly
+        <b>negative</b> relationship, we see this chart:
       </p>
 
-      <img class="img-centered" src="/images/example_flat.png" height="240px" />
+      <img
+        class="img-centered"
+        src="/images/LineExampleNegative.png"
+        height="500px"
+      />
+      <hr />
+      <div class="row">
+        <div class="col" style="text-align: center;">
+          <p>Press Continue below to learn more about the next steps.</p>
 
-      <p>
-        Let's take an example set of variables, X = height and Y = weight. Of
-        the three lines shown below, which one do you think best represents the
-        true relationship between height and weight?
-      </p>
-
-      <div id="choicearray">
-        <img src="/images/hw_1.png" height="240px" />
-        <img src="/images/hw_2.png" height="240px" />
-        <img src="/images/hw_3.png" height="240px" />
+          <button type="submit" class="btn btn-secondary" id="consent">
+            Continue
+          </button>
+        </div>
       </div>
-
-      <p>
-        Height and weight have a <b>moderately positive</b> relationship: For
-        the most part, taller people tend to weigh more. However, this
-        relationship is not perfect, since there are many tall, skinny people
-        who don't weigh that much, as well as many short people who weigh a lot.
-        So unlike the line shown to the left for a perfectly positive
-        relationship, the line that best represents the true relationship
-        between height and weight is closer to a horizontal line (the middle
-        option in the row above).
-      </p>
-
-      <p>Press Continue below to learn more about the next steps.</p>
-
-      <button type="submit" class="btn btn-secondary" id="consent">
-        Continue
-      </button>
     </div>
 
     <!-- <script src="/js/article.js"></script> -->
