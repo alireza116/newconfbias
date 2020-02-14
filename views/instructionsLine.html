@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Visualizing Bivariate Relationships</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+      integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+      integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+      crossorigin=""
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/css/instructions.css" />
+  </head>
+  <body>
+    <div class="container bg-light" id="instructions">
+      <h3>Instructions Line</h3>
+      <p>
+        Welcome! In this study you will be asked to make a series of judgments
+        based on your belief about the strength of the relationship between two
+        variables.
+      </p>
+
+      <p>
+        The relationship between two variables will be represented by a line, as
+        in the examples below. The angle of the line indicates the degree to
+        which one variable increases or decreases as the other variable changes.
+      </p>
+
+      <p>
+        For example, for two variables that have a perfectly
+        <b>negative</b> relationship, each unit increase in X is associated with
+        a unit <i>decrease</i> in Y. As a result, the line for a perfectly
+        <b>negative</b> relationship would look like this:
+      </p>
+
+      <img
+        class="img-centered"
+        src="/images/example_negative.png"
+        height="240px"
+      />
+
+      <p>
+        For two variables that have a perfectly <b>positive</b> relationship,
+        each unit increase in X is associated with a unit <i>increase</i> in Y.
+        As a result, the line for a perfectly <b>positive</b> relationship would
+        look like this:
+      </p>
+
+      <img
+        class="img-centered"
+        src="/images/example_positive.png"
+        height="240px"
+      />
+
+      <p>
+        If two variables are totally <b>unrelated</b> to each other, a unit
+        increase in X is associated with <i>no change</i> in Y. As a result, the
+        line for the relationship between <b>unrelated</b> variables would look
+        like this:
+      </p>
+
+      <img class="img-centered" src="/images/example_flat.png" height="240px" />
+
+      <p>
+        Let's take an example set of variables, X = height and Y = weight. Of
+        the three lines shown below, which one do you think best represents the
+        true relationship between height and weight?
+      </p>
+
+      <div id="choicearray">
+        <img src="/images/hw_1.png" height="240px" />
+        <img src="/images/hw_2.png" height="240px" />
+        <img src="/images/hw_3.png" height="240px" />
+      </div>
+
+      <p>
+        Height and weight have a <b>moderately positive</b> relationship: For
+        the most part, taller people tend to weigh more. However, this
+        relationship is not perfect, since there are many tall, skinny people
+        who don't weigh that much, as well as many short people who weigh a lot.
+        So unlike the line shown to the left for a perfectly positive
+        relationship, the line that best represents the true relationship
+        between height and weight is closer to a horizontal line (the middle
+        option in the row above).
+      </p>
+
+      <p>Press Continue below to learn more about the next steps.</p>
+
+      <button type="submit" class="btn btn-secondary" id="consent">
+        Continue
+      </button>
+    </div>
+
+    <!-- <script src="/js/article.js"></script> -->
+    <!-- <script src="/js/study.js"></script> -->
+    <script>
+      $("#sidebar").height(function() {
+        return $("html").height();
+      });
+    </script>
+    <script>
+      //    window.location.assign("/consent");
+      $("#consent").click(function(event) {
+        event.preventDefault();
+        window.location.assign("/intermission");
+      });
+    </script>
+  </body>
+</html>

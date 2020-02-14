@@ -38,52 +38,106 @@
       crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="/css/instructions.css" />
+    <style>
+      .charts {
+        height: 600px;
+      }
+      .chart {
+        height: 100%;
+      }
+      .chartdraw {
+        margin: 0 auto;
+      }
+      .uncertaintyPaths {
+        pointer-events: none;
+      }
+      svg {
+        display: block;
+        margin: 0 auto;
+        cursor: pointer;
+      }
+      .line {
+        pointer-events: none;
+      }
+      .uncertainty {
+        pointer-events: none;
+      }
+      .chartChoice {
+        margin-bottom: 50px;
+      }
+      .loader {
+        position: absolute;
+        height: 200px;
+        width: 200px;
+        left: 50%;
+        margin-left: -100px;
+        top: 50%;
+        margin-top: -100px;
+        display: none;
+      }
+    </style>
   </head>
   <body>
-    <div class="container bg-light" id="instructions">
+    <div class="container bg-light main" id="instructions">
       <h3>Instructions - Round 1</h3>
 
       <p>
-        In this round, you will create a line chart which represents your belief
-        about the true relationship between two variables. The line chart will
-        look like this animation:
+        In this stuyd, you will create a line chart which represents your belief
+        about the true relationship between two variables. In thi page, we will
+        practice ith the line chart!
       </p>
-
+      <!-- 
       <img
         src="/images/beliefdraw.gif"
         style="width:75%; margin: 0 auto; display:block"
         alt=""
-      />
+      /> -->
 
       <p>
-        The orange line represents what you think is the
+        The red line represents what you think is the
         <b>most likely</b> relationship between the two variables. First you
         will use the mouse to adjust the angle of the line according to what you
-        think is the most likely relationship, then you will click the mouse
-        button to record your response.
+        think is the most likely relationship, then you will <em>click</em> the
+        mouse button to record your response.
       </p>
 
       <p>
         The gray lines represent <b>plausible alternatives</b> that you think
         have some chance of representing the true relationship, but are less
-        likely than the orange line. After you set the angle of the orange line,
+        likely than the orange line. After you set the angle of the red line,
         you will be able to adjust the set of plausible alternatives that you
         think could also represent the relationship between the variables. You
         can select the gray lines after selecting the orange line.
       </p>
 
       <p>
-        You will create line charts for a total of 5 sets of variables. Press
-        the Continue button when you are ready to begin.
+        Now let's practice.
       </p>
 
+      <div class="chartChoice">
+        <div class="row charts">
+          <div class="col-6 chartdraw">
+            <div id="chart1" class="chart" style="margin: 0 auto"></div>
+          </div>
+        </div>
+        <div class="row choices">
+          <div class="col" style="margin: 0 auto; text-align: center;">
+            <button class="btn btn-secondary" style="margin: 0 auto" id="next">
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- 
       <button type="submit" class="btn btn-secondary" id="consent">
         Continue
-      </button>
+      </button> -->
     </div>
 
     <!-- <script src="/js/article.js"></script> -->
     <!-- <script src="/js/study.js"></script> -->
+    <img class="loader" src="/images/loader.gif" />
+    <script src="/js/lineChartDraw.js"></script>
     <script>
       $("#sidebar").height(function() {
         return $("html").height();
@@ -91,17 +145,49 @@
     </script>
     <script>
       //    window.location.assign("/consent");
-      $("#consent").click(function(event) {
-        event.preventDefault();
-        window.location.assign("/intermission");
-      });
+      // $("#consent").click(function(event) {
+      //   event.preventDefault();
+      //   window.location.assign("/intermission");
+      // });
     </script>
     <script>
-      $.get("/api/data", function(data) {
-        var variables = data;
-        $(".varX").text(variables[0]);
-        $(".varY").text(variables[1]);
+      var variables = [
+        ["width", "height"],
+        ["age", "health"],
+        ["skin color", "crime"]
+      ];
+      var variableIndex = 0;
+      var startTime = Date.now();
+      var chart1 = new LineChartDraw("chart1", variables[variableIndex]);
+      var uniform = d3.randomUniform(-1, 1);
+      var slope1 = uniform();
+      chart1.createChart(slope1);
+      $("#next").click(function(event) {
+        event.preventDefault;
+        if (variableIndex === variables.length - 1) {
+          window.location.assign("/intermission");
+        } else {
+          $(".loader").css("display", "block");
+          $(".main").css("opacity", "0.1");
+          setTimeout(function() {
+            $(".loader").css("display", "none");
+            $(".main").css("opacity", "1");
+          }, 1000);
+          variableIndex++;
+          d3.select("svg").remove();
+          uncertaintySelected = false;
+          selected = false;
+          var chart1 = new LineChartDraw("chart1", variables[variableIndex]);
+          var uniform = d3.randomUniform(-1, 1);
+          var slope1 = uniform();
+          chart1.createChart(slope1);
+        }
       });
+      // $.get("/api/data", function(data) {
+      //   var variables = data;
+      //   $(".varX").text(variables[0]);
+      //   $(".varY").text(variables[1]);
+      // });
     </script>
   </body>
 </html>

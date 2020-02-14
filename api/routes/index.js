@@ -252,10 +252,16 @@ router.get("/instructions/uncertainty", function(req, res) {
   if (req.session.completed) {
     res.render("debrief.html");
   } else {
-    res.render("instructionsUncertainty.html");
+    if (req.session.visGroup === "line") {
+      res.render("instructionsLine.html");
+    } else if (req.session.visGroup === "band") {
+      res.render("instructionsBand.html");
+    } else if (req.session.visGroup === "hop") {
+      res.render("instructionsHop.html");
+    }
   }
 });
-
+console.log("asd");
 router.get("/instructions/draw", function(req, res) {
   if (req.session.completed) {
     res.render("debrief.html");

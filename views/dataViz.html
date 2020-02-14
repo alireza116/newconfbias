@@ -187,8 +187,8 @@
         var state = userData.state;
         $("#varX").text(variables[0]);
         $("#varY").text(variables[1]);
-        console.log(testData);
-        console.log(userData);
+        // console.log(testData);
+        // console.log(userData);
 
         // temporary till we figure out data for the charts.
         // var dataObj = [];
@@ -225,6 +225,7 @@
         switch (visGroup) {
           case "scatter":
             chart1.createScatterChart();
+            chart1.turnOffHelper();
             break;
           case "line":
             chart1.createScatterChart();

@@ -21,7 +21,7 @@ function LineChartDraw(chartID, variables, sampleData) {
   cwidth = cheight;
   //console.log(cwidth);
   //console.log(cheight);
-  var margin = { top: 120, right: 120, bottom: 120, left: 120 },
+  var margin = { top: 120, right: 120, bottom: 120, left: 80 },
     width = cwidth - margin.left - margin.right, // Use the window's width
     height = cheight - margin.top - margin.bottom; // Use the window's height
   var slopeScale = d3
@@ -81,6 +81,7 @@ function LineChartDraw(chartID, variables, sampleData) {
     .attr("d", valueLine)
     .attr("fill", "white")
     .attr("clip-path", "url(#circle-clip)");
+    
   svg
     .append("clipPath") // define a clip path
     .attr("id", "circle-clip") // give the clipPath an ID
@@ -354,5 +355,13 @@ function LineChartDraw(chartID, variables, sampleData) {
         .transition()
         .attr("d", valueLine);
     }, hopSpeed);
+  };
+
+  this.turnOffHelper = function() {
+    d3.select(".helper").style("display", "none");
+  };
+
+  this.turnOnHelper = function() {
+    d3.select(".helper").style("display", "");
   };
 }
