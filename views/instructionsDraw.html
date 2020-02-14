@@ -82,9 +82,9 @@
       <h3>Instructions - Round 1</h3>
 
       <p>
-        In this stuyd, you will create a line chart which represents your belief
-        about the true relationship between two variables. In thi page, we will
-        practice ith the line chart!
+        Throughout the task you will create a line chart which represents your belief
+        about the true relationship between two variables. In this page, we will
+        practice with the line chart!
       </p>
       <!-- 
       <img
@@ -104,14 +104,21 @@
       <p>
         The gray lines represent <b>plausible alternatives</b> that you think
         have some chance of representing the true relationship, but are less
-        likely than the orange line. After you set the angle of the red line,
-        you will be able to adjust the set of plausible alternatives that you
+        likely than the red line. After you set the angle of the red line,
+        you will adjust the set of plausible alternatives that you
         think could also represent the relationship between the variables. You
-        can select the gray lines after selecting the orange line.
+        can select the gray lines after selecting the red line.
       </p>
 
       <p>
-        Now let's practice.
+        Now let's practice recording your belief about the relationship between
+        two variables, weight and height. Move the mouse over the chart until the
+        angle of the red line represents what you think is the most likely 
+        relationship between the variables Weight and Height, then click to record
+        your response. Next, move the mouse again in order to adjust the set of 
+        plausible alternatives (gray lines) to include relationships between the
+        two variables that are plausible, but less likely, than the red line. When
+        you are finished, click the mouse again to record your response.
       </p>
 
       <div class="chartChoice">
@@ -120,6 +127,23 @@
             <div id="chart1" class="chart" style="margin: 0 auto"></div>
           </div>
         </div>
+
+
+      <p>
+        The set of plausible alternatives (gray lines) should capture how uncertain 
+        you are about the relationship between the two variables. For example, if you
+        were completely confident that height and weight had a perfect positive
+        relationship, then your response would look something like this:
+      </p>
+
+      <p>
+        In contrast, if you were uncertain about the relationship between height and
+        weight (e.g., if you think a negative relationship is plausible even though
+        a positive relationship is most likely), your response might look something
+        like this:
+      </p>
+
+
         <div class="row choices">
           <div class="col" style="margin: 0 auto; text-align: center;">
             <button class="btn btn-secondary" style="margin: 0 auto" id="next">
@@ -152,7 +176,7 @@
     </script>
     <script>
       var variables = [
-        ["width", "height"],
+        ["weight", "height"],
         ["age", "health"],
         ["skin color", "crime"]
       ];
