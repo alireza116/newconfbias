@@ -26,6 +26,8 @@ let set2 = dataList.filter(function(d) {
 
 let datasets = [set1, set2];
 
+console.log(datasets);
+
 let states = ["draw1", "dataViz", "draw2"];
 let visGroups = ["line", "band", "hop"];
 
@@ -135,7 +137,8 @@ router.get("/api/data", function(req, res) {
     data: dataset.data.data,
     rho: dataset.rho,
     N: dataset.N,
-    visGroup: req.session.visGroup
+    visGroup: req.session.visGroup,
+    unit: dataset.unit
   };
   res.status(200).send(d);
 });
@@ -218,17 +221,21 @@ router.get("/consent", function(req, res) {
 });
 
 router.get("/intermission", function(req, res) {
-  if (req.session.varIndex === variables.length && !req.session.uncertainty) {
-    // req.session.completed = true;
-    res.redirect("/next");
-  } else if (
-    req.session.varIndex === variables.length &&
-    req.session.uncertainty
-  ) {
-    req.session.completed = true;
-    res.redirect("/postforms");
+  if (!req.session.userid) {
+    res.redirect("/consent");
   } else {
-    res.render("intermission.html");
+    if (req.session.varIndex === variables.length && !req.session.uncertainty) {
+      // req.session.completed = true;
+      res.redirect("/next");
+    } else if (
+      req.session.varIndex === variables.length &&
+      req.session.uncertainty
+    ) {
+      req.session.completed = true;
+      res.redirect("/postforms");
+    } else {
+      res.render("intermission.html");
+    }
   }
 });
 
@@ -349,7 +356,7 @@ router.get("/next", function(req, res) {
       req.session.variables = shuffle(variables);
       // THIS IS WHERE VISGROUP IS SET.
       req.session.visGroup = visGroups[getRandomInt(visGroups.length)];
-      // req.session.visGroup = "band";
+      // req.session.visGroup = "line";
       let token = req.session.userid;
       Response.findOneAndUpdate(
         { usertoken: token },

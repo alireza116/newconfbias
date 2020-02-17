@@ -1,4 +1,4 @@
-function LineChartDraw(chartID, variables, sampleData) {
+function LineChartDraw(chartID, variables, sampleData, unit = "people") {
   var line;
   var uncertainty;
   var lineG;
@@ -21,7 +21,7 @@ function LineChartDraw(chartID, variables, sampleData) {
   cwidth = cheight;
   //console.log(cwidth);
   //console.log(cheight);
-  var margin = { top: 120, right: 120, bottom: 120, left: 80 },
+  var margin = { top: 120, right: 120, bottom: 120, left: 120 },
     width = cwidth - margin.left - margin.right, // Use the window's width
     height = cheight - margin.top - margin.bottom; // Use the window's height
   var slopeScale = d3
@@ -64,10 +64,36 @@ function LineChartDraw(chartID, variables, sampleData) {
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    .style("border", "solid white")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .style("background-color", "lightgrey");
   // .attr("clip-path", "url(#rect-clip)");
+
+  var legend = svg.append("g").style("font-weight", "500");
+
+  legend
+    .append("text")
+    .attr("x", 0)
+    .attr("y", -margin.top + 40)
+    .attr("text-anchor", "middle")
+    .text("This chart is not interactive")
+    .style("fill", "orange");
+
+  legend
+    .append("text")
+    .attr("x", width + margin.left - 40)
+    .attr("y", -margin.top + 40)
+    .attr("text-anchor", "end")
+    .text("Relationship between");
+
+  legend
+    .append("text")
+    .attr("x", width + margin.left - 40)
+    .attr("y", -margin.top + 60)
+    .attr("text-anchor", "end")
+    .text(`${variables[0]} & ${variables[1]} of ${unit}`);
+
   var helperDataset = [
     { x: 0, y: 0 },
     { x: 1, y: 1 },
@@ -81,7 +107,7 @@ function LineChartDraw(chartID, variables, sampleData) {
     .attr("d", valueLine)
     .attr("fill", "white")
     .attr("clip-path", "url(#circle-clip)");
-    
+
   svg
     .append("clipPath") // define a clip path
     .attr("id", "circle-clip") // give the clipPath an ID

@@ -2,7 +2,7 @@ var beliefData;
 var selected = false;
 var uncertaintySelected = false;
 var uncertaintyPaths;
-function LineChartDraw(chartID, variables) {
+function LineChartDraw(chartID, variables, unit = "people") {
   var line;
   var uncertainty;
   var lineG;
@@ -51,6 +51,7 @@ function LineChartDraw(chartID, variables) {
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    .style("border", "solid white")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
   // .attr("clip-path", "url(#rect-clip)");
@@ -60,6 +61,28 @@ function LineChartDraw(chartID, variables) {
     { x: 1, y: 0 },
     { x: 0, y: 1 }
   ];
+  var legend = svg.append("g").style("font-weight", "500");
+
+  legend
+    .append("text")
+    .attr("x", 0)
+    .attr("y", -margin.top + 40)
+    .attr("text-anchor", "middle")
+    .text("This chart is interactive")
+    .style("fill", "#3498DB");
+
+  legend
+    .append("text")
+    .attr("x", width + margin.left - 40)
+    .attr("y", -margin.top + 40)
+    .attr("text-anchor", "end")
+    .text("Relationship between");
+  legend
+    .append("text")
+    .attr("x", width + margin.left - 40)
+    .attr("y", -margin.top + 60)
+    .attr("text-anchor", "end")
+    .text(`${variables[0]} & ${variables[1]} of ${unit}`);
   svg
     .append("path")
     .data([helperDataset])
@@ -195,7 +218,7 @@ function LineChartDraw(chartID, variables) {
       .attr("d", valueLine)
       .attr("fill", "none")
       // .attr("stroke", "#ffab00")
-      .attr("stroke", "red")
+      .attr("stroke", "#3498DB")
       .attr("stroke-width", 5);
 
     line.attr("transform", "translate(" + width / 2 + "," + -height / 2 + ")");
