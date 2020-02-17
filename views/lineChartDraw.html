@@ -45,22 +45,22 @@
         height: 100%;
       }
       .title {
-        height: 20%;
-        font-size: 1.2em;
-        padding-top: 20px;
+        height: 15%;
+        font-size: 1em;
+        padding-top: 10px;
         text-align: center;
         margin: 0;
       }
       .chartChoice {
-        height: 75%;
+        height: 85%;
       }
       .charts {
-        height: 90%;
+        height: 80%;
         margin: 0;
       }
 
       .choices {
-        height: 10%;
+        height: 20%;
         margin: 0;
       }
       #chart1,
@@ -124,20 +124,22 @@
   <body>
     <div class="container-fluid bg-light main">
       <h6 class="title">
-        <p id="draw2"></p>
-        <p>
-          Use the mouse to select a line that represents the
-          <b>most likely</b> relationship between
-        </p>
-        <p><span id="varX"></span> and <span id="varY"></span></p>
-        <p>
-          Click the mouse button to save the line. Then, use the mouse to adjust
-          the set of lines that are plausible alternatives for the relationship
-          between the variables. When the lines cover the range of plausible
-          relationships, click the mouse button to save your response. If you
-          want to change your response, click the "Reset" button and start over.
-          Otherwise, press Continue when finished.
-        </p>
+        <div id="titleContainer">
+          <p>
+            <span id="draw2"></span>
+            Use the mouse to select a line that represents the
+            <b>most likely</b> relationship between
+          </p>
+          <p><span id="varX"></span> and <span id="varY"></span></p>
+          <p>
+            Click the mouse button to save the line. Then, use the mouse to
+            adjust the set of lines that are plausible alternatives for the
+            relationship between the variables. When the lines cover the range
+            of plausible relationships, click the mouse button to save your
+            response. If you want to change your response, click the "Reset"
+            button and start over. Otherwise, press Continue when finished.
+          </p>
+        </div>
       </h6>
 
       <div class="chartChoice">
@@ -163,18 +165,18 @@
     <script src="/js/lineChartDraw.js"></script>
 
     <script>
-      //    $(".chartChoice").height(function(){
-      //       var titleHeight = $(".title").height();
-      //       return $(".main").height() - titleHeight;
-      //    });
-      //
-      ////    $(".choices").height(function(){
-      ////        return $("button").height();
-      ////    });
-      //
-      //    $('.charts').height(function(){
-      //        return $(".chartChoice").height() - $(".choices").height();
-      //    });
+      // $(".chartChoice").height(function() {
+      //   var titleHeight = $(".title").height();
+      //   return $(".main").height() - titleHeight;
+      // });
+
+      // $(".choices").height(function() {
+      //   return $("button").height();
+      // });
+
+      // $(".charts").height(function() {
+      //   return $(".chartChoice").height() - $(".choices").height();
+      // });
 
       $(".loader").css("display", "block");
       $(".main").css("opacity", "0.1");
