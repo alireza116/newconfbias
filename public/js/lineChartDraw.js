@@ -61,6 +61,36 @@ function LineChartDraw(chartID, variables, unit = "people") {
     { x: 1, y: 0 },
     { x: 0, y: 1 }
   ];
+  var button = svg
+    .append("rect")
+    .attr("width", 100)
+    .attr("height", 40)
+    .attr("x", width / 2 - 50)
+    .attr("y", height + margin.top / 2)
+    .style("fill", "lightgrey");
+
+  svg
+    .append("text")
+    .attr("width", 120)
+    .attr("height", 40)
+    .attr("text-anchor", "middle")
+    .attr("x", width / 2)
+    .attr("y", height + margin.top / 2 + 25)
+    .style("pointer-events", "none")
+    .text("Reset");
+
+  button
+    .on("mouseover", function() {
+      d3.select(this).style("fill", "#3498DB");
+    })
+    .on("mouseout", function() {
+      d3.select(this).style("fill", "lightgrey");
+    })
+    .on("click", function() {
+      uncertaintySelected = false;
+      selected = false;
+      uncertaintyPaths.selectAll("path").remove();
+    });
   var legend = svg.append("g").style("font-weight", "500");
 
   legend
