@@ -131,6 +131,7 @@ router.get("/api/userinfo", function(req, res) {
 router.get("/api/data", function(req, res) {
   let vars = req.session.variables[req.session.varIndex];
   var dataset = jsonData[`${vars[0]}_${vars[1]}`];
+  console.log(dataset);
   let d = {
     state: req.session.state,
     vars: vars,
@@ -138,7 +139,7 @@ router.get("/api/data", function(req, res) {
     rho: dataset.rho,
     N: dataset.N,
     visGroup: req.session.visGroup,
-    unit: dataset.unit
+    unit: dataset.unitt
   };
   res.status(200).send(d);
 });

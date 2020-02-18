@@ -186,7 +186,7 @@
         // var scatterData = data[0];
         // // data baout user state and variables
         var userData = data[0];
-
+        var unit = data.unit;
         var variables = userData.vars;
         var state = userData.state;
         $("#varX").text(variables[0]);
@@ -223,7 +223,7 @@
 
         var slope = testData.rho;
         var variables = userData.vars;
-        var chart1 = new LineChartDraw("chart", variables, testData);
+        var chart1 = new LineChartDraw("chart", variables, testData, unit);
         var visGroup = userData.visGroup;
         console.log(visGroup);
         switch (visGroup) {
@@ -256,6 +256,8 @@
       //   console.log(data);
       // });
       $("#next").click(function(event) {
+        $(".loader").css("display", "block");
+        $(".main").css("opacity", "0.1");
         event.preventDefault();
         beliefData["startTime"] = startTime;
         beliefData["endTime"] = Date.now();

@@ -1,11 +1,11 @@
 ﻿Unit of observation,X,Y,True relationship,Political?,rho,set
-Company,Weight of a diamond,Price of a diamond,Strongly positive,No,0.9,1
-City,Temperature,Crime rate,Positive,No,0.4,1
-Person,Yearly income,Height,None,No,0,1
-Person,Exercise amount,Body weight,Negative,No,-0.4,1
-City,Temperature,Sales of Mittens,Strongly Negative,No,-0.9,1
-Country,Federal government spending,Federal deficit,Strongly positive,Yes,0.9,2
-Country,Immigrant population,Economic growth,Positive,Yes,0.4,2
-City,Income tax rate,Poverty rate,None,Yes,0,2
-Company,Labor union participation,Corporate profits,Negative,Yes,-0.4,2
-City,Vaccination rate,Rate of illness,Strongly Negative,Yes,-0.9,2
+companies,Weight of a diamond,Price of a diamond,Strongly positive,No,0.9,1
+cities,Temperature,Crime rate,Positive,No,0.4,1
+people,Yearly income,Height,None,No,0,1
+people,Exercise amount,Body weight,Negative,No,-0.4,1
+cities,Temperature,Sales of Mittens,Strongly Negative,No,-0.9,1
+countries,Federal government spending,Federal deficit,Strongly positive,Yes,0.9,2
+countries,Immigrant population,Economic growth,Positive,Yes,0.4,2
+cities,Income tax rate,Poverty rate,None,Yes,0,2
+companies,Labor union participation,Corporate profits,Negative,Yes,-0.4,2
+cities,Vaccination rate,Rate of illness,Strongly Negative,Yes,-0.9,2

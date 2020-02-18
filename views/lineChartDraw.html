@@ -190,9 +190,11 @@
       }, 1000);
       var startTime = Date.now();
       $.get("/api/data", function(data) {
+        console.log(data);
         var uniform = d3.randomUniform(-1, 1);
         var slope1 = uniform();
         //        var variables = ["Height","Wealth"];
+        var unit = data.unit;
         var variables = data.vars;
         var state = data.state;
         $("#varX").text(variables[0]);
@@ -201,12 +203,13 @@
         if (state === "draw2") {
           $("#draw2").text("Now, having seen the previous data visualization,");
         }
-        var chart1 = new LineChartDraw("chart1", variables);
+        var chart1 = new LineChartDraw("chart1", variables, unit);
         chart1.createChart(slope1);
 
         $("#next").click(function(event) {
           event.preventDefault();
           if (uncertaintySelected & selected) {
+            $(".loader").css("display", "block");
             beliefData["startTime"] = startTime;
             beliefData["endTime"] = Date.now();
             $.post(

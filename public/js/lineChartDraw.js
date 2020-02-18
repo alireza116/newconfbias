@@ -2,7 +2,7 @@ var beliefData;
 var selected = false;
 var uncertaintySelected = false;
 var uncertaintyPaths;
-function LineChartDraw(chartID, variables, unit = "people") {
+function LineChartDraw(chartID, variables, unit = "person") {
   var line;
   var uncertainty;
   var lineG;
