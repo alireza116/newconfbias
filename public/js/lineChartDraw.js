@@ -13,6 +13,9 @@ function LineChartDraw(chartID, variables, unit = "people") {
   var margin = { top: 120, right: 120, bottom: 120, left: 120 },
     width = cwidth - margin.left - margin.right, // Use the window's width
     height = cheight - margin.top - margin.bottom; // Use the window's height
+
+  var lineColor = "#E74C3C";
+
   var slopeScale = d3
     .scaleLinear()
     .domain([1, -1])
@@ -81,7 +84,7 @@ function LineChartDraw(chartID, variables, unit = "people") {
 
   button
     .on("mouseover", function() {
-      d3.select(this).style("fill", "#3498DB");
+      d3.select(this).style("fill", lineColor);
     })
     .on("mouseout", function() {
       d3.select(this).style("fill", "lightgrey");
@@ -99,7 +102,7 @@ function LineChartDraw(chartID, variables, unit = "people") {
     .attr("y", -margin.top + 40)
     .attr("text-anchor", "middle")
     .text("This chart is interactive")
-    .style("fill", "#3498DB");
+    .style("fill", lineColor);
 
   legend
     .append("text")
@@ -240,6 +243,7 @@ function LineChartDraw(chartID, variables, unit = "people") {
       .attr("class", "uncertainty")
       .attr("fill", "lightgrey")
       .attr("fill-opacity", 0);
+
     uncertaintyPaths = lineG.append("g");
     line = lineG
       .append("path")
@@ -248,7 +252,7 @@ function LineChartDraw(chartID, variables, unit = "people") {
       .attr("d", valueLine)
       .attr("fill", "none")
       // .attr("stroke", "#ffab00")
-      .attr("stroke", "#3498DB")
+      .attr("stroke", lineColor)
       .attr("stroke-width", 5);
 
     line.attr("transform", "translate(" + width / 2 + "," + -height / 2 + ")");
