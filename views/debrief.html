@@ -1,50 +1,65 @@
 <html>
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"  crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
     <!--<link rel="stylesheet" href="/css/study.css">-->
     <style>
-        #complete{
-            margin-top: 100px;
-        }
+      #complete {
+        margin-top: 100px;
+      }
     </style>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
 
     <title>Markant Lab Study</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-                    <div id="complete">
-                        <h5>Thank you for your time.</h5>
-                        <p>Please enter this token as your completion record in MTurk: </p>
+      <div id="complete">
+        <h5>Thank you for your time.</h5>
+        <p>Please enter this token as your completion record in MTurk:</p>
 
-                        <p>This token is the proof of the completion of this study: </p>
+        <p>This token is the proof of the completion of this study:</p>
 
-                        <p id = "token" style="font-weight: bold; font-size: xx-large">
-                        </p>
-                        <p>Please keep the browser open so you can maintain the token. <br>
-                            Payment is contingent upon entering this token.
-                        </p>
-                        <p> What you should know about this study: <br>
-                        The purpose of this study is to develop new methods for eliciting beliefs about relationships between variables. For each set of variables you were asked to make judgments about the most likely relationship using a set of visualization methods. Your responses will be used to identify a method that can quickly and accurately measure a person’s subjective belief about such relationships. The findings of this study will improve our understanding of how people’s beliefs affect how they interact with and learn from data visualizations.
-                        </p>
-                    </div>
-
+        <p id="token" style="font-weight: bold; font-size: xx-large"></p>
+        <p>
+          Please keep the browser open so you can maintain the token. <br />
+          Payment is contingent upon entering this token.
+        </p>
+        <p>
+          What you should know about this study: <br />
+          The purpose of this study is to understand to what degree individuals
+          update their beliefs about relationships between two variables in
+          light of new data. For each set of variables you were asked to draw
+          your belief about the the most likely relationship before and after
+          viewing data about that relationship using different types of data
+          visualizations. Your responses will help us better understand how data
+          visualization affects peoples' judgements about different phenomena.
+        </p>
+      </div>
     </div>
-</body>
-<script>
-
-
-    $.get("/api/userinfo",function(data){
-        $("#token").text(data.token);
-    })
-
-
-
-
-
-</script>
+  </body>
+  <script>
+    $.get("/api/userinfo", function(data) {
+      $("#token").text(data.token);
+    });
+  </script>
 </html>
