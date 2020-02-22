@@ -1,0 +1,263 @@
+{
+  "_id": ObjectId("5e4c64b564bed015f4bb880d"),
+  "responses": [
+    {
+      "belief": "0.8163499093049236",
+      "uncertainty": ["0.6903437866446158", "0.9423560319652311"],
+      "startTime": "1582064864041",
+      "endTime": "1582064870291",
+      "state": "draw1",
+      "variables": ["Immigrant population", "Economic growth"]
+    },
+    {
+      "startTime": "1582064870569",
+      "endTime": "1582064872424",
+      "state": "dataViz",
+      "variables": ["Immigrant population", "Economic growth"]
+    },
+    {
+      "belief": "-0.6886044016031012",
+      "uncertainty": ["-0.7787326648282997", "-0.5984761383779029"],
+      "startTime": "1582064872601",
+      "endTime": "1582064875381",
+      "state": "draw2",
+      "variables": ["Immigrant population", "Economic growth"]
+    },
+    {
+      "belief": "0.7884915371273378",
+      "uncertainty": ["0.7012110313442788", "0.8757720429103968"],
+      "startTime": "1582064876888",
+      "endTime": "1582064880233",
+      "state": "draw1",
+      "variables": ["Vaccination rate", "Rate of illness"]
+    },
+    {
+      "startTime": "1582064880505",
+      "endTime": "1582064882564",
+      "state": "dataViz",
+      "variables": ["Vaccination rate", "Rate of illness"]
+    },
+    {
+      "belief": "-0.5566356693421963",
+      "uncertainty": ["-0.766117554719145", "-0.3471537839652478"],
+      "startTime": "1582064882747",
+      "endTime": "1582064885405",
+      "state": "draw2",
+      "variables": ["Vaccination rate", "Rate of illness"]
+    },
+    {
+      "belief": "0.7256662095987452",
+      "uncertainty": ["0.6203002495550467", "0.8310321696424434"],
+      "startTime": "1582064886774",
+      "endTime": "1582064890097",
+      "state": "draw1",
+      "variables": ["Labor union participation", "Corporate profits"]
+    },
+    {
+      "startTime": "1582064890422",
+      "endTime": "1582064892048",
+      "state": "dataViz",
+      "variables": ["Labor union participation", "Corporate profits"]
+    },
+    {
+      "belief": "-0.8344007320042706",
+      "uncertainty": ["-0.9280386363720392", "-0.7407628276365019"],
+      "startTime": "1582064892236",
+      "endTime": "1582064895249",
+      "state": "draw2",
+      "variables": ["Labor union participation", "Corporate profits"]
+    },
+    {
+      "belief": "0.5274247437273989",
+      "uncertainty": ["0.3565258968303593", "0.6983235906244383"],
+      "startTime": "1582064897121",
+      "endTime": "1582064899988",
+      "state": "draw1",
+      "variables": ["Income tax rate", "Poverty rate"]
+    },
+    {
+      "startTime": "1582064900177",
+      "endTime": "1582064901834",
+      "state": "dataViz",
+      "variables": ["Income tax rate", "Poverty rate"]
+    },
+    {
+      "belief": "-0.6702156138499449",
+      "uncertainty": ["-0.8124283175092026", "-0.5280029101906869"],
+      "startTime": "1582064902010",
+      "endTime": "1582064904952",
+      "state": "draw2",
+      "variables": ["Income tax rate", "Poverty rate"]
+    },
+    {
+      "belief": "-0.012786519333849666",
+      "uncertainty": ["-0.3651979799503437", "0.3396249412826444"],
+      "startTime": "1582064906321",
+      "endTime": "1582064909454",
+      "state": "draw1",
+      "variables": ["Government spending", "Budget deficit"]
+    },
+    {
+      "startTime": "1582064909749",
+      "endTime": "1582064911359",
+      "state": "dataViz",
+      "variables": ["Government spending", "Budget deficit"]
+    },
+    {
+      "belief": "-0.6853610393131391",
+      "uncertainty": ["-0.8694157025010756", "-0.5013063761252026"],
+      "startTime": "1582064911547",
+      "endTime": "1582064914854",
+      "state": "draw2",
+      "variables": ["Government spending", "Budget deficit"]
+    },
+    {
+      "belief": "-0.9201779964884205",
+      "uncertainty": ["-0.9482741363820983", "-0.8920818565947428"],
+      "startTime": "1582064921990",
+      "endTime": "1582064928188",
+      "state": "draw1",
+      "variables": ["Temperature", "Sales of Mittens"]
+    },
+    {
+      "startTime": "1582064928398",
+      "endTime": "1582064931929",
+      "state": "dataViz",
+      "variables": ["Temperature", "Sales of Mittens"]
+    },
+    {
+      "belief": "-0.921245740011355",
+      "uncertainty": ["-0.9680651232405593", "-0.8744263567821506"],
+      "startTime": "1582064932112",
+      "endTime": "1582064936873",
+      "state": "draw2",
+      "variables": ["Temperature", "Sales of Mittens"]
+    },
+    {
+      "belief": "0.17024944553592047",
+      "uncertainty": ["-0.16205722949965207", "0.5025561205714926"],
+      "startTime": "1582064938168",
+      "endTime": "1582064948406",
+      "state": "draw1",
+      "variables": ["Yearly income", "Height"]
+    },
+    {
+      "startTime": "1582064948713",
+      "endTime": "1582064951624",
+      "state": "dataViz",
+      "variables": ["Yearly income", "Height"]
+    },
+    {
+      "belief": "0.03489666596486929",
+      "uncertainty": ["-0.2250729219487027", "0.29486625387844145"],
+      "startTime": "1582064951807",
+      "endTime": "1582064956452",
+      "state": "draw2",
+      "variables": ["Yearly income", "Height"]
+    },
+    {
+      "belief": "-0.5517294945506035",
+      "uncertainty": ["-0.739063958262405", "-0.3643950308388018"],
+      "startTime": "1582064957995",
+      "endTime": "1582064961412",
+      "state": "draw1",
+      "variables": ["Exercise amount", "Body weight"]
+    },
+    {
+      "startTime": "1582064961673",
+      "endTime": "1582064963896",
+      "state": "dataViz",
+      "variables": ["Exercise amount", "Body weight"]
+    },
+    {
+      "belief": "-0.43009483034800344",
+      "uncertainty": ["-0.5378072778854552", "-0.32238238281055165"],
+      "startTime": "1582064964089",
+      "endTime": "1582064967730",
+      "state": "draw2",
+      "variables": ["Exercise amount", "Body weight"]
+    },
+    {
+      "belief": "-0.600852990657837",
+      "uncertainty": ["-0.7060535431478403", "-0.49565243816783383"],
+      "startTime": "1582064969305",
+      "endTime": "1582064973401",
+      "state": "draw1",
+      "variables": ["Temperature", "Crime rate"]
+    },
+    {
+      "startTime": "1582064973591",
+      "endTime": "1582064976089",
+      "state": "dataViz",
+      "variables": ["Temperature", "Crime rate"]
+    },
+    {
+      "belief": "0.4219865390842563",
+      "uncertainty": ["0.2800403033057308", "0.5639327748627816"],
+      "startTime": "1582064976274",
+      "endTime": "1582064978974",
+      "state": "draw2",
+      "variables": ["Temperature", "Crime rate"]
+    },
+    {
+      "belief": "-0.7433399030491072",
+      "uncertainty": ["-0.8431344622876242", "-0.64354534381059"],
+      "startTime": "1582064980207",
+      "endTime": "1582064983337",
+      "state": "draw1",
+      "variables": ["Weight of a diamond", "Price of a diamond"]
+    },
+    {
+      "startTime": "1582064983558",
+      "endTime": "1582064985012",
+      "state": "dataViz",
+      "variables": ["Weight of a diamond", "Price of a diamond"]
+    },
+    {
+      "belief": "0.8867787736066846",
+      "uncertainty": ["0.7500053122244705", "1"],
+      "startTime": "1582064985194",
+      "endTime": "1582064988428",
+      "state": "draw2",
+      "variables": ["Weight of a diamond", "Price of a diamond"]
+    }
+  ],
+  "usertoken": "t7S30LQu",
+  "variables1": [
+    ["Immigrant population", "Economic growth"],
+    ["Vaccination rate", "Rate of illness"],
+    ["Labor union participation", "Corporate profits"],
+    ["Income tax rate", "Poverty rate"],
+    ["Government spending", "Budget deficit"]
+  ],
+  "visGroup": "line",
+  "date": ISODate("2020-02-18T22:27:01.799Z"),
+  "__v": 0,
+  "prequestionnaire": {
+    "genderRadios": "female",
+    "age": "34",
+    "raceRadios": "nativeamerican",
+    "eduRadios": "masters"
+  },
+  "variables2": [
+    ["Temperature", "Sales of Mittens"],
+    ["Yearly income", "Height"],
+    ["Exercise amount", "Body weight"],
+    ["Temperature", "Crime rate"],
+    ["Weight of a diamond", "Price of a diamond"]
+  ],
+  "postquestionnaire": {
+    "economic": "1",
+    "social": "2",
+    "alert": "1",
+    "ashamed": "1",
+    "upset": "1",
+    "nervous": "1",
+    "determined": "1",
+    "attentive": "1",
+    "hostile": "1",
+    "active": "1",
+    "afraid": "1",
+    "inspired": "1"
+  }
+}

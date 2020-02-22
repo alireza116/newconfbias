@@ -1,5 +1,5 @@
 ﻿Unit of observation,X,Y,True relationship,Political?,rho,set
-companies,Weight of a diamond,Price of a diamond,Strongly positive,No,0.9,1
+diamonds,Weight,Price,Strongly positive,No,0.9,1
 cities,Temperature,Crime rate,Positive,No,0.4,1
 people,Yearly income,Height,None,No,0,1
 people,Exercise amount,Body weight,Negative,No,-0.4,1

@@ -186,7 +186,9 @@
         // var scatterData = data[0];
         // // data baout user state and variables
         var userData = data[0];
-        var unit = data.unit;
+        // console.log(data);
+        var unit = userData.unit;
+        // console.log("unit", unit);
         var variables = userData.vars;
         var state = userData.state;
         $("#varX").text(variables[0]);
@@ -265,7 +267,7 @@
           "/api/study",
           (data = beliefData),
           (success = function(d) {
-            console.log(d);
+            // console.log(d);
             console.log("success");
             window.location.assign("/next");
           })

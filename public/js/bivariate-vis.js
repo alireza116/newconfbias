@@ -1,4 +1,4 @@
-function LineChartDraw(chartID, variables, sampleData, unit = "people") {
+function LineChartDraw(chartID, variables, sampleData, unit = "person") {
   var line;
   var uncertainty;
   var lineG;
