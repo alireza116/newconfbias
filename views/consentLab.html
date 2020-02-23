@@ -119,7 +119,7 @@
         //    window.location.assign("/consent");
         $("#consent").click(function(event){
             event.preventDefault();
-            $.get("/api/consent/inlab", function(data, status){
+            $.get("/api/consent/lab", function(data, status){
                 console.log(data);
                 window.location.assign("/preforms");
             });

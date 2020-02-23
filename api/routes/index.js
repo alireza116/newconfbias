@@ -54,7 +54,7 @@ const responseSchema = new Schema({
   },
   variables1: Schema.Types.Mixed,
   variables2: Schema.Types.Mixed,
-  inlab: Boolean,
+  participantGroup: String,
   visGroup: String,
   date: {
     type: Date,
@@ -69,7 +69,7 @@ const responseSchema = new Schema({
 
 const Response = mongoose.model("newconfbias", responseSchema);
 
-router.get("/api/consent/inlab", function(req, res) {
+router.get("/api/consent/lab", function(req, res) {
   // 0 is low 1 is high 2 is control //
   // for order 0 is basic anchoring first, then with map visualization and 1 is map visualization first and then basic anchoring//
 
@@ -104,7 +104,7 @@ router.get("/api/consent/inlab", function(req, res) {
       usertoken: token,
       variables1: req.session.variables,
       visGroup: req.session.visGroup,
-      inlab: true
+      participantGroup: "lab"
     });
 
     newResponse.save(function(err) {
@@ -153,7 +153,56 @@ router.get("/api/consent/mturk", function(req, res) {
       usertoken: token,
       variables1: req.session.variables,
       visGroup: req.session.visGroup,
-      inlab: false
+      participantGroupp: "mturk"
+    });
+
+    newResponse.save(function(err) {
+      if (err) console.log(err);
+      res.send({
+        user: token
+      });
+    });
+  } else {
+    res.send("consent already given");
+  }
+});
+
+router.get("/api/consent/class", function(req, res) {
+  // 0 is low 1 is high 2 is control //
+  // for order 0 is basic anchoring first, then with map visualization and 1 is map visualization first and then basic anchoring//
+
+  if (!req.session.userid) {
+    let token = randomstring.generate(8);
+    let datasetIndex = getRandomInt(2);
+    variables = datasets[datasetIndex].map(function(d) {
+      // console.log(d);
+      return d["vars"];
+    });
+    //signifies whether we are in the scatter plot stage or uncertainty stage
+    req.session.uncertainty = false;
+    //signifies wether we start with dataset 1 or dataset 2 (political or not)
+    req.session.datasetIndex = datasetIndex;
+    // this will change to the actual group later. Might be a better way of doing this.
+    req.session.visGroup = "scatter";
+    //user's unique token
+    req.session.userid = token;
+    req.session.completed = false;
+    req.session.postQuestion = false;
+    req.session.preQuestion = false;
+    //this get incremented and iterates over different variables
+    req.session.varIndex = 0;
+    //this assigns the orders of variables.
+    req.session.variables = shuffle(variables);
+    //this assigns the state of the study i.e. elicitation 1, data vis, elicitation 2
+    req.session.stateIndex = 0;
+    //this assigns a string format of state i.e. draw1, datavis, draw2
+    req.session.state = states[req.session.stateIndex];
+
+    let newResponse = new Response({
+      usertoken: token,
+      variables1: req.session.variables,
+      visGroup: req.session.visGroup,
+      participantGroupp: "class"
     });
 
     newResponse.save(function(err) {
@@ -272,11 +321,19 @@ router.get("/consent/mturk", function(req, res) {
   }
 });
 
-router.get("/consent/inlab", function(req, res) {
+router.get("/consent/lab", function(req, res) {
   if (req.session.completed) {
     res.render("debrief.html");
   } else {
-    res.render("consentInLab.html");
+    res.render("consentLab.html");
+  }
+});
+
+router.get("/consent/class", function(req, res) {
+  if (req.session.completed) {
+    res.render("debrief.html");
+  } else {
+    res.render("consentClass.html");
   }
 });
 
