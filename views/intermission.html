@@ -48,8 +48,8 @@
   <body>
     <div style="height:100%" class="container bg-light" id="instructions">
       <div>
-        <h4>Now think about the relationship between these variables</h4>
-        <h5><span id="varX"></span> and <span id="varY"></span></h5>
+        <h4>Now think about the relationship between these variables:</h4>
+        <h5><span id="varX"></span> and <span id="varY"></span> of <span id="unit"></span></h5>
         <button type="submit" class="btn btn-primary" id="presubmit">
           Continue
         </button>
@@ -61,8 +61,10 @@
     <script>
       $.get("/api/data", function(data) {
         var variables = data.vars;
+        var unit = data.unit;
         $("#varX").text(variables[0]);
         $("#varY").text(variables[1]);
+        $("#unit").text(unit);
       });
       $("#presubmit").click(function(event) {
         event.preventDefault();

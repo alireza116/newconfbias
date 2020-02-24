@@ -307,7 +307,7 @@ router.post("/api/post", function(req, res) {
 //first page
 router.get("/", function(req, res) {
   if (req.session.completed) {
-    res.render("debrief.html");
+    res.render("debriefMTurk.html");
   } else {
     res.redirect("consent/mturk");
   }
@@ -315,7 +315,7 @@ router.get("/", function(req, res) {
 // consent page
 router.get("/consent/mturk", function(req, res) {
   if (req.session.completed) {
-    res.render("debrief.html");
+    res.render("debriefMTurk.html");
   } else {
     res.render("consentMTurk.html");
   }
@@ -323,7 +323,7 @@ router.get("/consent/mturk", function(req, res) {
 
 router.get("/consent/lab", function(req, res) {
   if (req.session.completed) {
-    res.render("debrief.html");
+    res.render("debriefClassOrLab.html");
   } else {
     res.render("consentLab.html");
   }
@@ -331,7 +331,7 @@ router.get("/consent/lab", function(req, res) {
 
 router.get("/consent/class", function(req, res) {
   if (req.session.completed) {
-    res.render("debrief.html");
+    res.render("debriefClassOrLab.html");
   } else {
     res.render("consentClass.html");
   }
