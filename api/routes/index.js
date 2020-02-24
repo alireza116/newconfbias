@@ -153,7 +153,7 @@ router.get("/api/consent/mturk", function(req, res) {
       usertoken: token,
       variables1: req.session.variables,
       visGroup: req.session.visGroup,
-      participantGroupp: "mturk"
+      participantGroup: "mturk"
     });
 
     newResponse.save(function(err) {
@@ -202,7 +202,7 @@ router.get("/api/consent/class", function(req, res) {
       usertoken: token,
       variables1: req.session.variables,
       visGroup: req.session.visGroup,
-      participantGroupp: "class"
+      participantGroup: "class"
     });
 
     newResponse.save(function(err) {
