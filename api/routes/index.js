@@ -472,8 +472,8 @@ router.get("/next", function(req, res) {
       });
       req.session.variables = shuffle(variables);
       // THIS IS WHERE VISGROUP IS SET.
-      req.session.visGroup = visGroups[getRandomInt(visGroups.length)];
-      // req.session.visGroup = "line";
+      // req.session.visGroup = visGroups[getRandomInt(visGroups.length)];
+      req.session.visGroup = "line";
       let token = req.session.userid;
       Response.findOneAndUpdate(
         { usertoken: token },
