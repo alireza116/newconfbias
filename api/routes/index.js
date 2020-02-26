@@ -26,7 +26,7 @@ let set2 = dataList.filter(function(d) {
 
 let datasets = [set1, set2];
 
-console.log(datasets);
+// console.log(datasets);
 
 let states = ["draw1", "dataViz", "draw2"];
 let visGroups = ["line", "band", "hop"];
@@ -231,7 +231,8 @@ router.get("/api/userinfo", function(req, res) {
 router.get("/api/data", function(req, res) {
   let vars = req.session.variables[req.session.varIndex];
   var dataset = jsonData[`${vars[0]}_${vars[1]}`];
-  console.log(dataset);
+  // console.log(dataset);
+  let varNumber = req.session.varIndex + 1 + req.session.datasetIndex * 5;
   let d = {
     state: req.session.state,
     vars: vars,
@@ -239,7 +240,8 @@ router.get("/api/data", function(req, res) {
     rho: dataset.rho,
     N: dataset.N,
     visGroup: req.session.visGroup,
-    unit: dataset.unitt
+    unit: dataset.unitt,
+    varNumber: varNumber
   };
   res.status(200).send(d);
 });
@@ -472,8 +474,8 @@ router.get("/next", function(req, res) {
       });
       req.session.variables = shuffle(variables);
       // THIS IS WHERE VISGROUP IS SET.
-      // req.session.visGroup = visGroups[getRandomInt(visGroups.length)];
-      req.session.visGroup = "line";
+      req.session.visGroup = visGroups[getRandomInt(visGroups.length)];
+      // req.session.visGroup = "line";
       let token = req.session.userid;
       Response.findOneAndUpdate(
         { usertoken: token },

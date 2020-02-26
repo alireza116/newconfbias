@@ -139,10 +139,9 @@
         <p>
           The set of plausible alternatives (gray lines) should capture how
           uncertain you are about the relationship between the two variables.
-          For example, if you were highly confident that height and weight
-          had a strongly positive relationship (such that taller people almost
-          always also weigh more) then your response might look something like
-          this:
+          For example, if you were highly confident that height and weight had a
+          strongly positive relationship (such that taller people almost always
+          also weigh more) then your response might look something like this:
         </p>
 
         <img
@@ -154,9 +153,9 @@
 
         <p>
           In contrast, if you were uncertain about the relationship between
-          height and weight (e.g., if you think slightly negative relationships are
-          plausible even though a positive relationship is most likely), your
-          response might look something like this:
+          height and weight (e.g., if you think slightly negative relationships
+          are plausible even though a positive relationship is most likely),
+          your response might look something like this:
         </p>
 
         <img
@@ -207,7 +206,13 @@
       $("#next").click(function(event) {
         event.preventDefault;
         if (variableIndex === variables.length - 1) {
-          window.location.assign("/instructions/scatter");
+          if (uncertaintySelected & selected) {
+            window.location.assign("/instructions/scatter");
+          } else {
+            alert(
+              "please familiarize yourself with the interactive chart at the top of this page. Your first click sets your belief about the most liekly correlation, and next click sets a range for your uncertainty. if you want to change your choices, you can click on the rest button. After you have tried the chart and selected a belief and uncertainty range, click to continue"
+            );
+          }
         } else {
           $(".loader").css("display", "block");
           $(".main").css("opacity", "0.1");
