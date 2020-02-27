@@ -134,6 +134,7 @@ router.get("/api/consent/mturk", function(req, res) {
     req.session.uncertainty = false;
     //signifies wether we start with dataset 1 or dataset 2 (political or not)
     req.session.datasetIndex = datasetIndex;
+    req.session.levelIndex = 0;
     // this will change to the actual group later. Might be a better way of doing this.
     req.session.visGroup = "scatter";
     //user's unique token
@@ -183,6 +184,7 @@ router.get("/api/consent/class", function(req, res) {
     req.session.uncertainty = false;
     //signifies wether we start with dataset 1 or dataset 2 (political or not)
     req.session.datasetIndex = datasetIndex;
+    req.session.levelIndex = 0;
     // this will change to the actual group later. Might be a better way of doing this.
     req.session.visGroup = "scatter";
     //user's unique token
