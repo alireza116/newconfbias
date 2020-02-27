@@ -84,6 +84,7 @@ router.get("/api/consent/lab", function(req, res) {
     req.session.uncertainty = false;
     //signifies wether we start with dataset 1 or dataset 2 (political or not)
     req.session.datasetIndex = datasetIndex;
+    req.session.levelIndex = 0;
     // this will change to the actual group later. Might be a better way of doing this.
     req.session.visGroup = "scatter";
     //user's unique token
@@ -232,7 +233,7 @@ router.get("/api/data", function(req, res) {
   let vars = req.session.variables[req.session.varIndex];
   var dataset = jsonData[`${vars[0]}_${vars[1]}`];
   // console.log(dataset);
-  let varNumber = req.session.varIndex + 1 + req.session.datasetIndex * 5;
+  let varNumber = req.session.varIndex + 1 + req.session.levelIndex * 5;
   let d = {
     state: req.session.state,
     vars: vars,
@@ -475,6 +476,7 @@ router.get("/next", function(req, res) {
       req.session.variables = shuffle(variables);
       // THIS IS WHERE VISGROUP IS SET.
       req.session.visGroup = visGroups[getRandomInt(visGroups.length)];
+      req.session.levelIndex++;
       // req.session.visGroup = "line";
       let token = req.session.userid;
       Response.findOneAndUpdate(
