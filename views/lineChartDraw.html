@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Uncertainty</title>
+    <title>Visualizing Bivariate Relationships</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.4.1.js"
@@ -210,6 +210,7 @@
           event.preventDefault();
           if (uncertaintySelected & selected) {
             $(".loader").css("display", "block");
+            $(".main").css("opacity", "0.1");
             beliefData["startTime"] = startTime;
             beliefData["endTime"] = Date.now();
             $.post(

@@ -99,6 +99,7 @@ router.get("/api/consent/lab", function(req, res) {
     //this assigns the state of the study i.e. elicitation 1, data vis, elicitation 2
     req.session.stateIndex = 0;
     //this assigns a string format of state i.e. draw1, datavis, draw2
+    req.session.participantGroup = "lab";
     req.session.state = states[req.session.stateIndex];
 
     let newResponse = new Response({
@@ -148,6 +149,7 @@ router.get("/api/consent/mturk", function(req, res) {
     req.session.variables = shuffle(variables);
     //this assigns the state of the study i.e. elicitation 1, data vis, elicitation 2
     req.session.stateIndex = 0;
+    req.session.participantGroup = "mturk";
     //this assigns a string format of state i.e. draw1, datavis, draw2
     req.session.state = states[req.session.stateIndex];
 
@@ -198,6 +200,7 @@ router.get("/api/consent/class", function(req, res) {
     req.session.variables = shuffle(variables);
     //this assigns the state of the study i.e. elicitation 1, data vis, elicitation 2
     req.session.stateIndex = 0;
+    req.session.participantGroup = "class";
     //this assigns a string format of state i.e. draw1, datavis, draw2
     req.session.state = states[req.session.stateIndex];
 
@@ -531,7 +534,12 @@ router.get("/debrief", function(req, res) {
     req.session.postQuestion &&
     req.session.preQuestion
   ) {
-    res.render("debrief.html");
+    if (req.session.participantGroup === "mturk") {
+      res.render("debriefMTurk.html");
+    } else {
+      res.render("debriefClassOrLab.html");
+    }
+    // res.render("debrief.html");
   } else if (!req.session.preQuestion) {
     res.redirect("preforms");
   } else if (!req.session.postQuestion && !req.session.completed) {
