@@ -37,11 +37,11 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-    <script src="js/jstat.js"></script>
+
     <link rel="stylesheet" href="/css/instructions.css" />
     <style>
       .charts {
-        height: 400px;
+        min-height: 400px;
       }
       .chart {
         height: 100%;
@@ -65,7 +65,7 @@
       }
       .chartChoice {
         margin-bottom: 50px;
-        text-align: center;
+        /* text-align: center; */
       }
       .loader {
         position: absolute;
@@ -77,6 +77,13 @@
         margin-top: -100px;
         display: none;
       }
+
+      #varX,
+      #varY,
+      #desctext {
+        font-weight: 600;
+        color: red;
+      }
     </style>
   </head>
   <body>
@@ -85,27 +92,36 @@
       id="instructions"
       style="width:90%"
     >
-      <h3>Practice With Correlations and Scatterplots</h3>
+      <h3>Practice with drawing your uncertainty</h3>
 
       <hr />
       <p>
-        Now let's make sure you understand how scattercharts and correlations
-        work. The scatter charts you are shown here contain ALL of the data for
-        two varibales, which means we are not facing any uncertainty.
-        <strong>
-          Please look at the scatter chart and choose what line represents the
-          correct correlation.</strong
-        >
+        Now let's make sure you understand how drawing uncertainty works. Please
+        read the provided scenario and choose the best answer.
       </p>
-
+      <hr />
+      <!-- <strong>
+        Please look at the scatter chart and choose what line represents the
+        correct correlation.</strong -->
+      <!-- > -->
       <div class="chartChoice">
-        <div class="row charts">
+        <!-- <div class="row charts">
           <div class="col-8 chartdraw">
             <div id="chartScatter" class="chart" style="margin: 0 auto"></div>
           </div>
-        </div>
+        </div> -->
+
+        <p>
+          <strong>Scenario:</strong>
+          Imagine a person believes the relationship between
+          <span id="varX">Variable A </span> and
+          <span id="varY">Variable A</span> is
+          <span id="desctext"
+            >moderately positive, but they are not very sure</span
+          >
+          . Which chart is closest to what they would draw?
+        </p>
         <hr />
-        <p>Which one of these charts shows the correct correlation?</p>
         <div class="row charts">
           <div class="col-4 chartdraw">
             <div
@@ -151,21 +167,37 @@
     <!-- <script src="/js/article.js"></script> -->
     <!-- <script src="/js/study.js"></script> -->
     <img class="loader" src="/images/loader.gif" />
-    <script src="js/js_boot.js"></script>
-    <script src="js/bivariate-vis.js"></script>
+    <script src="../js/jstat.js"></script>
+    <script src="../js/js_boot.js"></script>
+    <script src="../js/bivariate-vis.js"></script>
     <script>
       var variables = [
-        [["variable A", "variable B"], "people", 0.0],
-        [["variable C", "variable D"], "people", 0.6],
-        [["variable E", "variable F"], "people", -0.6]
+        [
+          ["variable A", "variable B"],
+          "people",
+          "moderately positive, but they are not very sure"
+        ],
+        [
+          ["variable C", "variable D"],
+          "people",
+          "no relationship, but they are not very sure"
+        ],
+        [
+          ["variable E", "variable F"],
+          "people",
+          "strongly negative, and they are confident"
+        ]
       ];
       var variableIndex = 0;
       var startTime = Date.now();
       var data;
-      var rhos = [-0.6, 0.0, 0.6];
+      var rhos = [-0.7, 0.0, 0.6];
+      var correctAnswers = [2, 1, 0];
+      var selectedAnswer;
+      var correctAnswer;
       var correctRho;
       var selectedRho;
-      d3.json("/data/testData.json").then(function(d) {
+      d3.json("/data/testDataBand.json").then(function(d) {
         // console.log(data);
 
         Object.keys(d).forEach(function(key) {
@@ -180,19 +212,12 @@
         });
         data = d;
         console.log(data);
+        // console.log(data);
         var vars = variables[variableIndex];
-        var testData = data[vars[2]];
-        correctRho = testData.rho;
-        var chart1 = new LineChartDraw(
-          "chartScatter",
-          vars[0],
-          testData.data,
-          vars[1]
-        );
-        chart1.createScatterChart();
-        chart1.turnOffHelper();
-        chart1.turnOffSignifier();
-
+        correctAnswer = correctAnswers[variableIndex];
+        $("#desctext").html(vars[2]);
+        $("#varX").html(vars[0][0]);
+        $("#varY").html(vars[0][1]);
         rhos.forEach(function(rho, i) {
           console.log(rho);
           console.log(i);
@@ -211,7 +236,9 @@
             vars[1]
           );
 
+          //   chart.createScatterChart();
           chart.createLineChart();
+          chart.createUncertaintyBand();
           chart.turnOffSignifier();
         });
       });
@@ -219,13 +246,13 @@
       $("#next").click(function(event) {
         event.preventDefault;
         if (variableIndex === variables.length - 1) {
-          if (Math.abs(selectedRho - correctRho) < 0.00001) {
-            window.location.assign("/intermission");
+          if (selectedAnswer === correctAnswer) {
+            window.location.assign("/instructions/task");
           } else {
             alert("your answer is incorrect, please try again.");
           }
         } else {
-          if (Math.abs(selectedRho - correctRho) < 0.00001) {
+          if (selectedAnswer === correctAnswer) {
             $(".loader").css("display", "block");
             $(".main").css("opacity", "0.1");
             setTimeout(function() {
@@ -236,19 +263,10 @@
             d3.selectAll("svg").remove();
 
             var vars = variables[variableIndex];
-            var testData = data[vars[2]];
-            correctRho = testData.rho;
-            var chart1 = new LineChartDraw(
-              "chartScatter",
-              vars[0],
-              testData.data,
-              vars[1]
-            );
-            chart1.createScatterChart();
-            chart1.turnOffHelper();
-            chart1.turnOffSignifier();
-            var rhos = [-0.6, 0.0, 0.6];
-
+            correctAnswer = correctAnswers[variableIndex];
+            $("#desctext").html(vars[2]);
+            $("#varX").html(vars[0][0]);
+            $("#varY").html(vars[0][1]);
             rhos.forEach(function(rho, i) {
               console.log(rho);
               console.log(i);
@@ -260,8 +278,12 @@
                 testData.data,
                 vars[1]
               );
+
+              //   chart.createScatterChart();
               chart.createLineChart();
+              chart.createUncertaintyBand();
               chart.turnOffSignifier();
+              //   chart.turnOffSignifier();
             });
           } else {
             alert("your answer is incorrect, please try again.");
@@ -291,6 +313,7 @@
           console.log(rhos[i]);
           console.log(correctRho);
           selectedRho = rhos[i];
+          selectedAnswer = i;
           console.log(rhos[i] === correctRho);
         });
       // $.get("/api/data", function(data) {

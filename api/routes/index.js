@@ -429,11 +429,19 @@ router.get("/attention", function(req, res) {
   }
 });
 
-router.get("/test", function(req, res) {
+router.get("/test/line", function(req, res) {
   if (req.session.completed) {
     res.render("debrief.html");
   } else {
-    res.render("instructionsTest.html");
+    res.render("testLine.html");
+  }
+});
+
+router.get("/test/band", function(req, res) {
+  if (req.session.completed) {
+    res.render("debrief.html");
+  } else {
+    res.render("testBand.html");
   }
 });
 

@@ -19,12 +19,12 @@ function LineChartDraw(chartID, variables, sampleData, unit = "person") {
   //   console.log(rhoBoot);
   var uncertaintyPaths;
 
-  cwidth = cheight;
+  cheight = cwidth;
   //console.log(cwidth);
   //console.log(cheight);
   var margin = { top: 120, right: 100, bottom: 120, left: 100 },
     width = cwidth - margin.left - margin.right, // Use the window's width
-    height = cwidth - margin.top - margin.bottom; // Use the window's height
+    height = cheight - margin.top - margin.bottom; // Use the window's height
   var slopeScale = d3
     .scaleLinear()
     .domain([1, -1])
@@ -206,7 +206,10 @@ function LineChartDraw(chartID, variables, sampleData, unit = "person") {
     .attr("x", width / 2)
     .attr("y", height + 20)
     .text(ystr + " (low)");
-  lineG = svg.append("g").attr("class", "lineContainer");
+  lineG = svg
+    .append("g")
+    .attr("class", "lineContainer")
+    .attr("clip-path", "url(#circle-clip)");
   uncertainty = lineG
     .append("path")
     .attr("class", "uncertainty")
@@ -218,10 +221,10 @@ function LineChartDraw(chartID, variables, sampleData, unit = "person") {
     posDegree = slopeScale(corr);
     var pos1Radians = (posDegree * Math.PI) / 180;
     var pos2Radians = ((posDegree + 180) * Math.PI) / 180;
-    var posy = Math.sin(pos1Radians) / 2;
-    var posx = Math.cos(pos1Radians) / 2;
-    var posy1 = Math.sin(pos2Radians) / 2;
-    var posx1 = Math.cos(pos2Radians) / 2;
+    var posy = Math.sin(pos1Radians);
+    var posx = Math.cos(pos1Radians);
+    var posy1 = Math.sin(pos2Radians);
+    var posx1 = Math.cos(pos2Radians);
     var pos = { x: posx, y: posy };
     var pos1 = { x: posx1, y: posy1 };
     //                console.log(focusPoint);
@@ -315,10 +318,10 @@ function LineChartDraw(chartID, variables, sampleData, unit = "person") {
         // console.log(posDegree);
         var pos1Radians = (posDegree * Math.PI) / 180;
         var pos2Radians = ((posDegree + 180) * Math.PI) / 180;
-        var posy = Math.sin(pos1Radians) / 2;
-        var posx = Math.cos(pos1Radians) / 2;
-        var posy1 = Math.sin(pos2Radians) / 2;
-        var posx1 = Math.cos(pos2Radians) / 2;
+        var posy = Math.sin(pos1Radians);
+        var posx = Math.cos(pos1Radians);
+        var posy1 = Math.sin(pos2Radians);
+        var posx1 = Math.cos(pos2Radians);
         var pos = { x: posx, y: posy };
         var pos1 = { x: posx1, y: posy1 };
         dataset.push(pos);
