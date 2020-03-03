@@ -60,7 +60,7 @@ const responseSchema = new Schema({
     type: Date,
     default: Date.now
   },
-
+  attention: Schema.Types.Mixed,
   prequestionnaire: Schema.Types.Mixed,
   postquestionnaire: Schema.Types.Mixed,
   responses: Schema.Types.Array,
@@ -274,6 +274,23 @@ router.post("/api/study", function(req, res) {
   );
 });
 
+router.post("/api/attention", function(req, res) {
+  let token = req.session.userid;
+  let data = req.body;
+  // console.log(data);
+  Response.findOneAndUpdate(
+    { usertoken: token },
+    {
+      attention: data
+    },
+    function(err, doc) {
+      if (err) return res.send(500, { error: err });
+      console.log("yeaah");
+      return res.send("successfully saved!");
+    }
+  );
+});
+
 //prequestionaire
 router.post("/api/pre", function(req, res) {
   let token = req.session.userid;
@@ -347,7 +364,7 @@ router.get("/consent/class", function(req, res) {
 
 router.get("/intermission", function(req, res) {
   if (!req.session.userid) {
-    res.redirect("/consent");
+    res.redirect("/consent/mturk");
   } else {
     if (req.session.varIndex === variables.length && !req.session.uncertainty) {
       // req.session.completed = true;
@@ -401,6 +418,22 @@ router.get("/instructions/scatter", function(req, res) {
     res.render("debrief.html");
   } else {
     res.render("instructionsScatter.html");
+  }
+});
+
+router.get("/attention", function(req, res) {
+  if (req.session.completed) {
+    res.render("debrief.html");
+  } else {
+    res.render("attention.html");
+  }
+});
+
+router.get("/test", function(req, res) {
+  if (req.session.completed) {
+    res.render("debrief.html");
+  } else {
+    res.render("instructionsTest.html");
   }
 });
 
@@ -494,7 +527,8 @@ router.get("/next", function(req, res) {
           if (err) {
             return console.log(err);
           }
-          res.redirect("/instructions/uncertainty");
+          res.redirect("/attention");
+          // res.redirect("/instructions/uncertainty");
         }
       );
     }

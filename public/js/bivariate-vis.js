@@ -12,6 +12,7 @@ function LineChartDraw(chartID, variables, sampleData, unit = "person") {
   var minAngle;
   var maxAngle;
   var n_uncertainty_paths = 200;
+  var jsboot = new js_boot();
   var rhoBoot = jsboot.boot_ci_pearsonr(sampleData);
   //   console.log(testData.N);
   //   console.log(testData.rho);
@@ -21,9 +22,9 @@ function LineChartDraw(chartID, variables, sampleData, unit = "person") {
   cwidth = cheight;
   //console.log(cwidth);
   //console.log(cheight);
-  var margin = { top: 120, right: 120, bottom: 120, left: 120 },
+  var margin = { top: 120, right: 100, bottom: 120, left: 100 },
     width = cwidth - margin.left - margin.right, // Use the window's width
-    height = cheight - margin.top - margin.bottom; // Use the window's height
+    height = cwidth - margin.top - margin.bottom; // Use the window's height
   var slopeScale = d3
     .scaleLinear()
     .domain([1, -1])
@@ -74,6 +75,7 @@ function LineChartDraw(chartID, variables, sampleData, unit = "person") {
 
   legend
     .append("text")
+    .attr("class", "signifier")
     .attr("x", 0)
     .attr("y", -margin.top + 40)
     .attr("text-anchor", "middle")
@@ -389,5 +391,13 @@ function LineChartDraw(chartID, variables, sampleData, unit = "person") {
 
   this.turnOnHelper = function() {
     d3.select(".helper").style("display", "");
+  };
+
+  this.turnOffSignifier = function() {
+    legend.select(".signifier").style("display", "none");
+  };
+
+  this.turnOnSignifier = function() {
+    legend.select(".signifier").style("display", "");
   };
 }
