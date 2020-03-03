@@ -191,27 +191,16 @@
       var variableIndex = 0;
       var startTime = Date.now();
       var data;
-      var rhos = [-0.7, 0.0, 0.6];
+      var rhos = ["-0.9", "0.0", "0.5"];
       var correctAnswers = [2, 1, 0];
       var selectedAnswer;
       var correctAnswer;
       var correctRho;
       var selectedRho;
       d3.json("/data/testDataBand.json").then(function(d) {
-        // console.log(data);
-
-        Object.keys(d).forEach(function(key) {
-          console.log(typeof key);
-          if (parseFloat(key).toFixed(1) == -0.0) {
-            d[0] = d[key];
-          } else {
-            d[parseFloat(key).toFixed(1)] = d[key];
-          }
-
-          delete d[key];
-        });
         data = d;
-        console.log(data);
+        console.log(data[-0.7]);
+
         // console.log(data);
         var vars = variables[variableIndex];
         correctAnswer = correctAnswers[variableIndex];
@@ -224,9 +213,6 @@
           var testData = data[rho];
 
           //   console.log(testData.data);
-          if (!("rho" in testData)) {
-            testData.rho = 0.0;
-          }
           console.log(testData);
           //   var correctRho = testData.rho;
           var chart = new LineChartDraw(

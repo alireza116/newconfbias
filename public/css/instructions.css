@@ -21,7 +21,11 @@ body {
 }
 
 #instructions p {
-  font-size: 18px;
+  font-size: 20px;
+}
+
+li {
+  font-size: 20px;
 }
 
 .varX,
