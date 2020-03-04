@@ -61,6 +61,8 @@ const responseSchema = new Schema({
     default: Date.now
   },
   attention: Schema.Types.Mixed,
+  lineTestErrors: Number,
+  bandTestErrors: Number,
   prequestionnaire: Schema.Types.Mixed,
   postquestionnaire: Schema.Types.Mixed,
   responses: Schema.Types.Array,
@@ -270,6 +272,40 @@ router.post("/api/study", function(req, res) {
         return res.send(500, { error: err });
       }
       return res.send(200, `successfully saved study`);
+    }
+  );
+});
+
+router.post("/api/linetest", function(req, res) {
+  let token = req.session.userid;
+  let data = req.body;
+  // console.log(data);
+  Response.findOneAndUpdate(
+    { usertoken: token },
+    {
+      lineTestErrors: data["errorCount"]
+    },
+    function(err, doc) {
+      if (err) return res.send(500, { error: err });
+      console.log("yeaah");
+      return res.send("successfully saved!");
+    }
+  );
+});
+
+router.post("/api/bandtest", function(req, res) {
+  let token = req.session.userid;
+  let data = req.body;
+  // console.log(data);
+  Response.findOneAndUpdate(
+    { usertoken: token },
+    {
+      bandTestErrors: data["errorCount"]
+    },
+    function(err, doc) {
+      if (err) return res.send(500, { error: err });
+      console.log("yeaah");
+      return res.send("successfully saved!");
     }
   );
 });

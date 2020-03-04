@@ -289,6 +289,7 @@ function LineChartDraw(chartID, variables, sampleData, unit = "person") {
     boot_ci_results = rhoBoot,
     corr = rhoBoot.pearsonr
   ) {
+    console.log(rhoBoot);
     minAngle = slopeScale(boot_ci_results.CI[0]);
     maxAngle = slopeScale(boot_ci_results.CI[1]);
     posDegree = slopeScale(corr);

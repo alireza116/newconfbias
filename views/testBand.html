@@ -98,8 +98,9 @@
 
       <hr />
       <p>
-        Now let's make sure you understand how to represent uncertainty in the relationship using 
-        the set of plausible alternatives. Please read the provided scenario and choose the best answer.
+        Now let's make sure you understand how to represent uncertainty in the
+        relationship using the set of plausible alternatives. Please read the
+        provided scenario and choose the best answer.
       </p>
       <hr />
       <!-- <strong>
@@ -118,9 +119,11 @@
           Imagine a person believes the relationship between
           <span id="varX">Variable A </span> and
           <span id="varY">Variable A</span> is
-          <span id="desctext">moderately positive, but they are not very sure</span>
-          . Of the options below, which chart best represents their beliefs about the relationship
-          between the variables?
+          <span id="desctext"
+            >moderately positive, but they are not very sure</span
+          >
+          . Of the options below, which chart best represents their beliefs
+          about the relationship between the variables?
         </p>
         <hr />
         <div class="row charts">
@@ -190,10 +193,15 @@
         ]
       ];
       var variableIndex = 0;
+      var errorCount = 0;
       $("#varIndex").html(variableIndex + 1);
       var startTime = Date.now();
       var data;
-      var rhos = ["-0.9", "0.0", "0.5"];
+      var rhosList = [
+        ["0.5", "0.0", "0.5"],
+        ["-0.9", "0.0", "0.0"],
+        ["-0.9", "0.0", "0.5"]
+      ];
       var correctAnswers = [2, 1, 0];
       var selectedAnswer;
       var correctAnswer;
@@ -209,6 +217,7 @@
         $("#desctext").html(vars[2]);
         $("#varX").html(vars[0][0]);
         $("#varY").html(vars[0][1]);
+        var rhos = rhosList[variableIndex];
         rhos.forEach(function(rho, i) {
           console.log(rho);
           console.log(i);
@@ -224,10 +233,20 @@
             vars[1]
           );
 
+          if ((variableIndex === 0) & (i == 0)) {
+            chart.createLineChart();
+            chart.createUncertaintyBand({ CI: [0.38, 0.51] }, 0.4);
+            chart.turnOffSignifier();
+          } else {
+            // chart.createScatterChart();
+            chart.createLineChart();
+            chart.createUncertaintyBand();
+            chart.turnOffSignifier();
+          }
           //   chart.createScatterChart();
-          chart.createLineChart();
-          chart.createUncertaintyBand();
-          chart.turnOffSignifier();
+          //   chart.createLineChart();
+          //   chart.createUncertaintyBand();
+          //   chart.turnOffSignifier();
         });
       });
 
@@ -235,8 +254,16 @@
         event.preventDefault;
         if (variableIndex === variables.length - 1) {
           if (selectedAnswer === correctAnswer) {
-            window.location.assign("/instructions/task");
+            $.post(
+              "/api/bandtest",
+              (data = { errorCount: errorCount }),
+              (success = function(d) {
+                console.log(d);
+                window.location.assign("/instructions/task");
+              })
+            );
           } else {
+            errorCount++;
             alert("your answer is incorrect, please try again.");
           }
         } else {
@@ -257,6 +284,7 @@
             $("#desctext").html(vars[2]);
             $("#varX").html(vars[0][0]);
             $("#varY").html(vars[0][1]);
+            var rhos = rhosList[variableIndex];
             rhos.forEach(function(rho, i) {
               console.log(rho);
               console.log(i);
@@ -270,12 +298,20 @@
               );
 
               //   chart.createScatterChart();
-              chart.createLineChart();
-              chart.createUncertaintyBand();
-              chart.turnOffSignifier();
+              if ((variableIndex === 1) & (i == 1)) {
+                chart.createLineChart();
+                chart.createUncertaintyBand({ CI: [-0.8, 0.8] }, 0.02);
+                chart.turnOffSignifier();
+              } else {
+                chart.createLineChart();
+                chart.createUncertaintyBand();
+                chart.turnOffSignifier();
+              }
+
               //   chart.turnOffSignifier();
             });
           } else {
+            errorCount++;
             alert("your answer is incorrect, please try again.");
           }
         }
@@ -299,12 +335,12 @@
           d3.select(this)
             .select("svg")
             .style("fill", "rgb(0, 150, 150)");
-          console.log(d, i);
-          console.log(rhos[i]);
-          console.log(correctRho);
-          selectedRho = rhos[i];
+          //   console.log(d, i);
+          //   console.log(rhos[i]);
+          //   console.log(correctRho);
+          //   selectedRho = rhos[i];
           selectedAnswer = i;
-          console.log(rhos[i] === correctRho);
+          //   console.log(rhos[i] === correctRho);
         });
       // $.get("/api/data", function(data) {
       //   var variables = data;
