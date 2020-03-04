@@ -92,7 +92,9 @@
       id="instructions"
       style="width:90%"
     >
-      <h3>Practice with drawing your uncertainty</h3>
+      <h3>
+        Practice with drawing your uncertainty <span id="varIndex"></span> / 3
+      </h3>
 
       <hr />
       <p>
@@ -188,6 +190,7 @@
         ]
       ];
       var variableIndex = 0;
+      $("#varIndex").html(variableIndex + 1);
       var startTime = Date.now();
       var data;
       var rhos = ["-0.9", "0.0", "0.5"];
@@ -245,6 +248,8 @@
               $(".main").css("opacity", "1");
             }, 1000);
             variableIndex++;
+            $("#varIndex").html(variableIndex + 1);
+            $("html, body").animate({ scrollTop: 0 });
             d3.selectAll("svg").remove();
 
             var vars = variables[variableIndex];
