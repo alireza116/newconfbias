@@ -92,10 +92,13 @@
 
       <hr />
       <p>
-        Before we continue to the task, let's make sure you understand how to interpret the scatter plots. 
+        Now let's make sure you understand how scattercharts and correlations
+        work. The scatter charts you are shown here contain ALL of the data for
+        two varibales, which means we are not facing any uncertainty.
         <strong>
-          Please look at the scatter plot and then choose which line represents the
-          most likely relationship between the variables based on the data in the scatter plot.</strong>
+          Please look at the scatter chart and choose what line represents the
+          correct correlation.</strong
+        >
       </p>
 
       <div class="chartChoice">
@@ -105,7 +108,7 @@
           </div>
         </div>
         <hr />
-        <p>Which of the lines below shows the most likely relationship between the variables based on the data above?</p>
+        <p>Which one of these charts shows the correct correlation?</p>
         <div class="row charts">
           <div class="col-4 chartdraw">
             <div
@@ -161,7 +164,7 @@
         [["variable E", "variable F"], "people", -0.6]
       ];
       var variableIndex = 0;
-      $("#varIndex").html(variableIndex);
+      $("#varIndex").html(variableIndex + 1);
       var startTime = Date.now();
       var data;
       var rhos = [-0.6, 0.0, 0.6];
@@ -199,7 +202,7 @@
         chart1.createScatterChart();
         chart1.turnOffHelper();
         chart1.turnOffSignifier();
-
+        $("#varIndex").html(variableIndex + 1);
         rhos.forEach(function(rho, i) {
           console.log(rho);
           console.log(i);
@@ -240,7 +243,7 @@
               $(".main").css("opacity", "1");
             }, 1000);
             variableIndex++;
-            $("#varIndex").html(variableIndex);
+            $("#varIndex").html(variableIndex + 1);
             $("html, body").animate({ scrollTop: 0 });
             d3.selectAll("svg").remove();
 

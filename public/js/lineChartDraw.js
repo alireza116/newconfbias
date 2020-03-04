@@ -8,7 +8,7 @@ function LineChartDraw(chartID, variables, unit = "person") {
   var lineG;
   var cwidth = $("#" + chartID).width();
   var cheight = $("#" + chartID).height();
-  cwidth = cheight;
+  cheight = cwidth;
 
   var margin = { top: 120, right: 120, bottom: 120, left: 120 },
     width = cwidth - margin.left - margin.right, // Use the window's width
