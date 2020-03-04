@@ -85,7 +85,10 @@
       id="instructions"
       style="width:90%"
     >
-      <h3>Practice With Correlations and Scatterplots</h3>
+      <h3>
+        Practice With Correlations and Scatterplots
+        <span id="varIndex"></span> / 3
+      </h3>
 
       <hr />
       <p>
@@ -161,9 +164,11 @@
         [["variable E", "variable F"], "people", -0.6]
       ];
       var variableIndex = 0;
+      $("#varIndex").html(variableIndex);
       var startTime = Date.now();
       var data;
       var rhos = [-0.6, 0.0, 0.6];
+      var correctAnswers = [2, 0, 1];
       var selectedAnswer;
       var correctAnswer;
       var correctRho;
@@ -187,7 +192,7 @@
         var testData = data[vars[2]];
 
         correctRho = testData.rho;
-        // correctAnswer = correctAnswers[variableIndex];
+        correctAnswer = correctAnswers[variableIndex];
         var chart1 = new LineChartDraw(
           "chartScatter",
           vars[0],
@@ -238,11 +243,13 @@
               $(".main").css("opacity", "1");
             }, 1000);
             variableIndex++;
+            $("#varIndex").html(variableIndex);
+            $("html, body").animate({ scrollTop: 0 });
             d3.selectAll("svg").remove();
 
             var vars = variables[variableIndex];
             var testData = data[vars[2]];
-            // correctAnswer = correctAnswers[variableIndex];
+            correctAnswer = correctAnswers[variableIndex];
             correctRho = testData.rho;
             var chart1 = new LineChartDraw(
               "chartScatter",
