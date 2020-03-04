@@ -248,20 +248,23 @@ function LineChartDraw(chartID, variables, sampleData, unit = "person") {
   };
 
   this.createScatterChart = function(data = sampleData) {
-    var xExtent = d3.extent(
-      data.map(function(d) {
-        return d.x;
-      })
-    );
-    var yExtent = d3.extent(
-      data.map(function(d) {
-        return d.y;
-      })
-    );
+    //var xExtent = d3.extent(
+    //  data.map(function(d) {
+    //    return d.x;
+    //  })
+    //);
+    //var yExtent = d3.extent(
+    //  data.map(function(d) {
+    //    return d.y;
+    //  })
+    //);
+    xExtent = [-3, 3];
+    yExtent = [-3, 3];
     xDataScale.domain(xExtent);
     yDataScale.domain(yExtent);
-    var xExtentDif = 1.5;
-    var yExtentDif = 1.5;
+    var xExtentDif = 1.2;
+    var yExtentDif = 1.2;
+
     points = svg
       .append("g")
       .attr("class", "points")
