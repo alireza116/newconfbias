@@ -30,7 +30,7 @@ let datasets = [set1, set2];
 
 let states = ["draw1", "dataViz", "draw2"];
 let visGroups = ["line", "band", "hop"];
-
+const maxEachGroup = 3;
 // let variables = Object.keys(jsonData).map(function(d) {
 //   return jsonData[d]["vars"];
 // });
@@ -68,6 +68,24 @@ const responseSchema = new Schema({
   responses: Schema.Types.Array,
   paid: { type: Boolean, Defult: false }
 });
+
+const countSchema = new Schema({
+  line: { type: Number, default: 0 },
+  band: { type: Number, default: 0 },
+  hop: { type: Number, default: 0 }
+});
+
+const visGroupSchema = new Schema({
+  mturk: countSchema,
+  class: countSchema,
+  lab: countSchema
+});
+
+const VisGroupCount = mongoose.model(
+  "visGroupCount",
+  visGroupSchema,
+  "visGroupCounts"
+);
 
 const Response = mongoose.model("newconfbias", responseSchema);
 
@@ -557,24 +575,27 @@ router.get("/next", function(req, res) {
       });
       req.session.variables = shuffle(variables);
       // THIS IS WHERE VISGROUP IS SET.
-      req.session.visGroup = visGroups[getRandomInt(visGroups.length)];
-      req.session.levelIndex++;
-      // req.session.visGroup = "band";
-      let token = req.session.userid;
-      Response.findOneAndUpdate(
-        { usertoken: token },
-        {
-          visGroup: req.session.visGroup,
-          variables2: req.session.variables
-        },
-        function(err, doc) {
-          if (err) {
-            return console.log(err);
+      getVisGroup(req.session.participantGroup).then(visGroup => {
+        req.session.visGroup = visGroup;
+        // countVisgroups(req.session.participantGroup, req.session.visGroup);
+        req.session.levelIndex++;
+        // req.session.visGroup = "band";
+        let token = req.session.userid;
+        Response.findOneAndUpdate(
+          { usertoken: token },
+          {
+            visGroup: req.session.visGroup,
+            variables2: req.session.variables
+          },
+          function(err, doc) {
+            if (err) {
+              return console.log(err);
+            }
+            res.redirect("/attention");
+            // res.redirect("/instructions/uncertainty");
           }
-          res.redirect("/attention");
-          // res.redirect("/instructions/uncertainty");
-        }
-      );
+        );
+      });
     }
   } else if (req.session.uncertainty) {
     console.log("made it uncertainty");
@@ -665,6 +686,56 @@ function shuffle(array) {
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
+}
+
+async function getVisGroup(participantGroup) {
+  let visGroups;
+  let visGroup;
+  let doc = await VisGroupCount.findOne(
+    { [participantGroup]: { $exists: true } },
+    { _id: 0 }
+  ).exec();
+
+  // return doc;
+  // .then(d => {
+  //   // FIRST CONSOLE.LOG
+  //   return d;
+  // })
+  // .catch(err => {
+  //   return "error occured";
+  // });
+  let gCounts = doc[participantGroup];
+  gCounts = {
+    line: gCounts["line"],
+    band: gCounts["band"],
+    hop: gCounts["hop"]
+  };
+  visGroups = Object.keys(gCounts).filter(key => {
+    return gCounts[key] < maxEachGroup;
+  });
+
+  if (visGroups.length === 0) {
+    visGroups = ["line", "hop", "band"];
+  }
+  visGroup = visGroups[getRandomInt(visGroups.length)];
+  console.log(visGroup);
+  countVisgroups(participantGroup, visGroup);
+  return await visGroup;
+}
+
+function countVisgroups(participantGroup, visGroup) {
+  console.log(`${participantGroup}.${visGroup}`);
+  VisGroupCount.updateOne(
+    { [participantGroup]: { $exists: true } },
+    { $inc: { [`${participantGroup}.${visGroup}`]: 1 } },
+    function(err, result) {
+      if (err) {
+        console.log("results not added");
+      } else {
+        console.log("counts added");
+      }
+    }
+  );
 }
 
 module.exports = router;
