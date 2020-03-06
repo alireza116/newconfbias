@@ -30,7 +30,7 @@ let datasets = [set1, set2];
 
 let states = ["draw1", "dataViz", "draw2"];
 let visGroups = ["line", "band", "hop"];
-const maxEachGroup = 3;
+const maxEachGroup = 100;
 // let variables = Object.keys(jsonData).map(function(d) {
 //   return jsonData[d]["vars"];
 // });
