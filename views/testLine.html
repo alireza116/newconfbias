@@ -92,10 +92,12 @@
 
       <hr />
       <p>
-        Now let's make sure you understand how to interpret the scatter plots. 
+        Now let's make sure you understand how to interpret the scatter plots.
         <strong>
-          Please look at the scatter plot below and choose the line which best represents the
-          relationship between the variables based on the data in the scatter plot.</strong>
+          Please look at the scatter plot below and choose the line which best
+          represents the relationship between the variables based on the data in
+          the scatter plot.</strong
+        >
       </p>
 
       <div class="chartChoice">
@@ -105,7 +107,10 @@
           </div>
         </div>
         <hr />
-        <p>Given the data in the scatter plot above, which of the lines below best represents the relationship between the variables?</p>
+        <p>
+          Given the data in the scatter plot above, which of the lines below
+          best represents the relationship between the variables?
+        </p>
         <div class="row charts">
           <div class="col-4 chartdraw">
             <div
@@ -230,7 +235,7 @@
           if (Math.abs(selectedRho - correctRho) < 0.00001) {
             $.post(
               "/api/linetest",
-              (data = { errorCount: errorCount }),
+              (data = { errorCount: errorCount, startTime: Date.now() }),
               (success = function(d) {
                 console.log(d);
                 window.location.assign("/test/band");

@@ -92,16 +92,16 @@
       id="instructions"
       style="width:90%"
     >
-      <h3>
-        Practice with drawing uncertainty <span id="varIndex"></span> / 3
-      </h3>
+      <h3>Practice with drawing uncertainty <span id="varIndex"></span> / 3</h3>
 
       <hr />
       <p>
-        Now let's make sure you understand how to interpret the set of plausible 
-        alternatives in terms of uncertainty about the relationship between the variables.
+        Now let's make sure you understand how to interpret the set of plausible
+        alternatives in terms of uncertainty about the relationship between the
+        variables.
         <strong>
-          Please read the scenario below and choose the best answer.</strong>
+          Please read the scenario below and choose the best answer.</strong
+        >
       </p>
       <hr />
       <!-- <strong>
@@ -240,7 +240,7 @@
             chart.turnOffSignifier();
           } else if ((variableIndex === 0) & (i == 2)) {
             chart.createLineChart();
-            chart.createUncertaintyBand({ CI: [-.1, 0.9] }, 0.4);
+            chart.createUncertaintyBand({ CI: [-0.1, 0.9] }, 0.4);
             chart.turnOffSignifier();
           } else {
             // chart.createScatterChart();
@@ -261,7 +261,7 @@
           if (selectedAnswer === correctAnswer) {
             $.post(
               "/api/bandtest",
-              (data = { errorCount: errorCount }),
+              (data = { errorCount: errorCount, startTime: Date.now() }),
               (success = function(d) {
                 console.log(d);
                 window.location.assign("/instructions/task");
@@ -309,7 +309,7 @@
                 chart.turnOffSignifier();
               } else if ((variableIndex === 2) & (i == 1)) {
                 chart.createLineChart();
-                chart.createUncertaintyBand({ CI: [-1, -.1] }, -0.9);
+                chart.createUncertaintyBand({ CI: [-1, -0.1] }, -0.9);
                 chart.turnOffSignifier();
               } else {
                 chart.createLineChart();
