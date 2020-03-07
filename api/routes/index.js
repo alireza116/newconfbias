@@ -31,6 +31,7 @@ let datasets = [set1, set2];
 let states = ["draw1", "dataViz", "draw2"];
 let visGroups = ["line", "band", "hop"];
 const maxEachGroup = 100;
+
 // let variables = Object.keys(jsonData).map(function(d) {
 //   return jsonData[d]["vars"];
 // });
@@ -87,7 +88,7 @@ const VisGroupCount = mongoose.model(
   "visGroupCounts"
 );
 
-const Response = mongoose.model("newconfbias", responseSchema);
+const Response = mongoose.model("newconfbiasMturk", responseSchema);
 
 router.get("/api/consent/lab", function(req, res) {
   // 0 is low 1 is high 2 is control //

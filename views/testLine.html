@@ -165,6 +165,7 @@
         [["variable C", "variable D"], "people", 0.6],
         [["variable E", "variable F"], "people", -0.6]
       ];
+      var startTime = Date.now();
       var errorCount = 0;
       var variableIndex = 0;
       $("#varIndex").html(variableIndex + 1);
@@ -235,7 +236,7 @@
           if (Math.abs(selectedRho - correctRho) < 0.00001) {
             $.post(
               "/api/linetest",
-              (data = { errorCount: errorCount, startTime: Date.now() }),
+              (data = { errorCount: errorCount, startTime: startTime }),
               (success = function(d) {
                 console.log(d);
                 window.location.assign("/test/band");

@@ -193,6 +193,7 @@
           "strongly negative, and they are highly confident"
         ]
       ];
+      var startTime = Date.now();
       var variableIndex = 0;
       var errorCount = 0;
       $("#varIndex").html(variableIndex + 1);
@@ -261,7 +262,7 @@
           if (selectedAnswer === correctAnswer) {
             $.post(
               "/api/bandtest",
-              (data = { errorCount: errorCount, startTime: Date.now() }),
+              (data = { errorCount: errorCount, startTime: startTime }),
               (success = function(d) {
                 console.log(d);
                 window.location.assign("/instructions/task");
