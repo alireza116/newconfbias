@@ -1,0 +1,72 @@
+---
+title: "results"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## results
+
+I'm just practicing, but I ran some different Linera Mixed Effect models
+
+```{r libraries}
+library(dplyr)
+library(ggplot2)
+library(statsr)
+library("lme4")
+library(report)
+library(tidyverse)
+library(sjPlot)
+library(sjlabelled)
+library(sjmisc)
+library(knitr)
+```
+
+### processing dataset
+
+```{r process}
+df <- read.csv(file="./processed_data.csv")
+df_exclude <- df %>% 
+              filter(exclude == 0) 
+df_exclude$visGroup2 = factor(df_exclude$visGroup, c("scatter","line","band","hop"))
+df_exclude$diff_belief_abs = abs(df_exclude$diff_belief)
+df_exclude$diff_uncertainty_abs = abs(df_exclude$diff_uncertainty)
+df_exclude$pop_corr_abs = abs(df_exclude$pop_corr)
+```
+
+### and getting linear mixed effect models
+#### size of belief change with visGroup and pop correlation as FE and usertoken as RE
+```{r models}
+model <- lmer(diff_belief_abs ~ visGroup2 + pop_corr_abs  + (1|usertoken) ,data=df_exclude)
+model2 <- lmer(diff_uncertainty_abs ~ visGroup2 + pop_corr_abs + (1|usertoken) ,data=df_exclude)
+```
+
+#### size of belief table
+```{r mixed effects uncertainty}
+kable(model %>% report() %>% table_long())
+```
+
+
+#### size of belief change plot
+```{r mixed effects plot,echo=FALSE}
+plot_model(model, vline.color = "red",,show.values = TRUE, value.offset = .3)
+```
+
+#### size of uncertainty change table
+```{r mixed effects uncertainty1}
+kable(model2 %>% report() %>% table_long())
+```
+
+
+#### size of uncertainty change plot
+```{r mixed effects plot1,echo=FALSE}
+plot_model(model2, vline.color = "red",,show.values = TRUE, value.offset = .3)
+```
+
+
+
+
