@@ -8,10 +8,11 @@ library(tidyverse)
 library(sjPlot)
 library(sjlabelled)
 library(sjmisc)
-library (rjson)
+library(rjson)
 theme_set(theme_sjplot())
 
 result <- fromJSON(file = "./bootstrap_results.json")
+
 # Convert JSON file to a data frame.
 uncertainties <- ldply(result, data.frame)
 uncertainties <- unique(uncertainties[c("vars","pearsonr","uncertainty_lower","uncertainty_upper")])
@@ -41,6 +42,49 @@ df_exclude$sample_correlation_abs <- abs(df_exclude$pearsonr)
 df_exclude$prior_belief_abs_error <- abs(df_exclude$prior_belief - df_exclude$pearsonr)
 df_exclude$posterior_belief_abs_error <- abs(df_exclude$post_belief - df_exclude$pearsonr)
 df_exclude$posterior_error <- df_exclude$post_belief - df_exclude$pearsonr
+
+
+
+
+
+
+# Posterior error -----
+
+# hist posterior error by condition and population correlation
+ggplot(data=df_exclude) +
+  geom_histogram(aes(x=posterior_error)) +
+  facet_grid(visGroup ~ pop_corr, scales="free_y")
+
+# hist absolute posterior error by condition and pop corr
+ggplot(data=df_exclude) +
+  geom_histogram(aes(x=posterior_belief_abs_error)) +
+  facet_grid(visGroup ~ pop_corr, scales="free_y")
+
+# hist absolute posterior error by condition and *absolute* pop corr
+ggplot(data=df_exclude) +
+  geom_histogram(aes(x=posterior_belief_abs_error)) +
+  facet_grid(visGroup ~ population_correlation_abs, scales="free_y")
+
+
+# linear mixed model on absolute posterior error
+m = lmer(posterior_belief_abs_error ~ 
+              visGroup + population_correlation_abs + 
+              (1|usertoken) + (1|vars), 
+            df_exclude)
+summary(m)
+
+# linear model might not be right in this case because outcome is bounded between 0 and 2;
+# can instead use a beta regression model, after transforming the outcome to be in (0, 1) interval
+library(glmmTMB)
+df_exclude$posterior_belief_abs_error_bnd = df_exclude$posterior_belief_abs_error/2
+m = glmmTMB(posterior_belief_abs_error_bnd ~ 
+              visGroup + population_correlation_abs + 
+              (1|usertoken) + (1|vars), 
+            df_exclude, 
+            family=list(family="beta", link="logit"))
+summary(m)
+
+
 
 
 model <- lmer(size_of_belief_change ~ visGroup + sample_correlation_abs + (1 | usertoken) ,data=df_exclude)
