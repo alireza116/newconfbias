@@ -44,9 +44,10 @@ df_exclude$posterior_belief_abs_error <- abs(df_exclude$post_belief - df_exclude
 df_exclude$posterior_error <- df_exclude$post_belief - df_exclude$pearsonr
 
 
+summary(df_exclude)
 
 
-
+min(df_exclude$size_of_belief_change)
 
 # Posterior error -----
 
@@ -72,6 +73,7 @@ m = lmer(posterior_belief_abs_error ~
               (1|usertoken) + (1|vars), 
             df_exclude)
 summary(m)
+plot_model(m, vline.color = "red",show.values = TRUE, value.offset = .3)
 
 # linear model might not be right in this case because outcome is bounded between 0 and 2;
 # can instead use a beta regression model, after transforming the outcome to be in (0, 1) interval
@@ -82,9 +84,10 @@ m = glmmTMB(posterior_belief_abs_error_bnd ~
               (1|usertoken) + (1|vars), 
             df_exclude, 
             family=list(family="beta", link="logit"))
+
 summary(m)
-
-
+plot_model(m, vline.color = "red",show.values = TRUE, value.offset = .3)
+m %>% report() %>% text_short()
 
 
 model <- lmer(size_of_belief_change ~ visGroup + sample_correlation_abs + (1 | usertoken) ,data=df_exclude)
