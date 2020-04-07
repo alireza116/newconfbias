@@ -9,6 +9,7 @@ library(sjPlot)
 library(sjlabelled)
 library(sjmisc)
 library(rjson)
+#library(car)
 theme_set(theme_sjplot())
 
 result <- fromJSON(file = "./bootstrap_results.json")
@@ -46,8 +47,6 @@ df_exclude$posterior_error <- df_exclude$post_belief - df_exclude$pearsonr
 
 
 
-
-
 # Posterior error -----
 
 # hist posterior error by condition and population correlation
@@ -66,22 +65,58 @@ ggplot(data=df_exclude) +
   facet_grid(visGroup ~ population_correlation_abs, scales="free_y")
 
 
-# linear mixed model on absolute posterior error
-m = lmer(posterior_belief_abs_error ~ 
-              visGroup + population_correlation_abs + 
-              (1|usertoken) + (1|vars), 
-            df_exclude)
-summary(m)
+# # linear mixed model on absolute posterior error
+# m = lmer(posterior_belief_abs_error ~ 
+#               visGroup * population_correlation_abs + 
+#               (1|usertoken), 
+#             df_exclude)
+# summary(m)
+# Anova(m, test = "F", type = "II")
+# 
+# library(multcomp)
+# ef_line = c(0, 1, 0, 0, 0, 0)
+# ef_band = c(0, 0, 1, 0, 0, 0)
+# ef_hop  = c(0, 0, 0, 1, 0, 0)
+# 
+# contr = rbind("line - (band+hop)" = ef_line - (ef_band+ef_hop)/2)
+# c = summary(glht(m, linfct=contr),
+#             test=adjusted('single-step'))
+
+
 
 # linear model might not be right in this case because outcome is bounded between 0 and 2;
 # can instead use a beta regression model, after transforming the outcome to be in (0, 1) interval
 library(glmmTMB)
 df_exclude$posterior_belief_abs_error_bnd = df_exclude$posterior_belief_abs_error/2
+
+ggplot(data=df_exclude) +
+  geom_histogram(aes(x=posterior_belief_abs_error_bnd)) +
+  facet_grid(visGroup ~ population_correlation_abs, scales="free_y")
+
+
 m = glmmTMB(posterior_belief_abs_error_bnd ~ 
               visGroup + population_correlation_abs + 
               (1|usertoken) + (1|vars), 
             df_exclude, 
             family=list(family="beta", link="logit"))
+
+# This gives list of coefficients and associated effects
+summary(m)
+
+
+
+# Belief change -----
+
+# hist belief change by condition and population correlation
+ggplot(data=df_exclude) +
+  geom_histogram(aes(x=diff_uncertainty)) +
+  facet_grid(visGroup ~ pop_corr, scales="free_y")
+
+
+m = lmer(diff_uncertainty ~
+           visGroup + population_correlation_abs + 
+           (1|usertoken) + (1|vars), 
+         df_exclude)
 summary(m)
 
 
