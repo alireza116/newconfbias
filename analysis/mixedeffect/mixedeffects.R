@@ -45,6 +45,10 @@ df_exclude$posterior_belief_abs_error <- abs(df_exclude$post_belief - df_exclude
 df_exclude$posterior_error <- df_exclude$post_belief - df_exclude$pearsonr
 
 
+# some NA responses
+df_exclude = df_exclude[!is.na(df_exclude$diff_belief),]
+
+
 summary(df_exclude)
 
 
@@ -102,15 +106,36 @@ m = glmmTMB(posterior_belief_abs_error_bnd ~
 
 # This gives list of coefficients and associated effects
 summary(m)
-
+confint(m)
 
 
 # Belief change -----
 
 # hist belief change by condition and population correlation
 ggplot(data=df_exclude) +
-  geom_histogram(aes(x=diff_uncertainty)) +
+  geom_histogram(aes(x=diff_belief)) +
   facet_grid(visGroup ~ pop_corr, scales="free_y")
+
+ggplot(data=df_exclude) +
+  geom_histogram(aes(x=size_of_belief_change)) +
+  facet_grid(visGroup ~ population_correlation_abs, scales="free_y")
+
+# response can't include 0 and 1
+df_exclude$size_of_belief_change_bnd = df_exclude$size_of_belief_change/2
+df_exclude[df_exclude$size_of_belief_change_bnd == 1,]$size_of_belief_change_bnd = .99999
+df_exclude[df_exclude$size_of_belief_change_bnd == 0,]$size_of_belief_change_bnd = .00001
+
+m = glmmTMB(size_of_belief_change_bnd ~ 
+              visGroup + population_correlation_abs + 
+              (1|usertoken) + (1|vars), 
+            df_exclude,
+            family=list(family="beta", link="logit"))
+
+summary(m)
+confint(m)
+
+
+# Uncertainty change
 
 
 m = lmer(diff_uncertainty ~
